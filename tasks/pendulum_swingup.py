@@ -1,12 +1,12 @@
 import numpy as np
 from pydrake.all import (
+    AddDefaultVisualization,
     AddMultibodyPlantSceneGraph,
     BasicVector,
     Diagram,
     DiagramBuilder,
     LeafSystem,
     Meshcat,
-    MeshcatVisualizer,
     Parser,
     StartMeshcat,
 )
@@ -15,24 +15,23 @@ from tasks.base import Task
 
 
 class PendulumPolicy(LeafSystem):
-    """Wraps a policy callable, mapping pendulum state to a saturated torque."""
+    """Wraps a policy callable for compatibility with a Drake diagram."""
 
-    def __init__(self, policy, torque_limit: float):
+    def __init__(self, policy):
         super().__init__()
         self.policy = policy
-        self.torque_limit = torque_limit
         self.state_port = self.DeclareVectorInputPort("state", 2)
         self.DeclareVectorOutputPort("torque", 1, self.CalcTorque)
 
-    def CalcTorque(self, context, output: BasicVector):
+    def CalcTorque(self, context, output):
         theta, theta_dot = self.state_port.Eval(context)
         obs = np.array([np.cos(theta), np.sin(theta), theta_dot])
-        u = float(np.asarray(self.policy(obs)).reshape(-1)[0])
-        output.SetAtIndex(0, np.clip(u, -self.torque_limit, self.torque_limit))
+        u = self.policy(obs)
+        output.SetFromVector(u)
 
 
 class PendulumSwingup(Task):
-    """Swing a torque-limited pendulum to an upright position.
+    """Swing an inverted pendulum to an upright position.
 
     Observations:
         - The cosine of the pendulum's angle
@@ -41,28 +40,41 @@ class PendulumSwingup(Task):
 
     Actions:
         - The torque applied to the pendulum
+
+    Success conditions:
+        - The pendulum is within 0.1 radians of upright
+        - The angular velocity of the pendulum is below 0.5 radians/s
     """
 
-    urdf = "package://drake/examples/pendulum/Pendulum.urdf"
-    torque_limit = 3.0  # N*m
     angle_tolerance = 0.1  # rad, distance from upright to count as success
     velocity_tolerance = 0.5  # rad/s, max speed at upright to count as success
 
-    def __init__(self, policy, accuracy: float = 1e-3, meshcat: Meshcat | None = None):
-        # Set before the base constructor, which calls create_scene.
-        self.meshcat = meshcat if meshcat is not None else StartMeshcat()
-        super().__init__(policy, accuracy, realtime=True)
+    def __init__(self, policy, visualize: bool = True):
+        """Initialize the pendulum swing-up task.
+
+        Args:
+            policy: A callable that takes an observation and returns an action.
+            visualize: Whether to visualize the simulation. If true, connects
+                       to meshcat and runs in ~realtime. Otherwise a headless
+                       simulation runs as fast as possible.
+        """
+        self.meshcat = StartMeshcat() if visualize else None
+        super().__init__(policy, realtime=visualize)
 
     def create_scene(self, policy) -> Diagram:
         builder = DiagramBuilder()
-        # CENIC requires a continuous-time plant.
-        self.plant, scene_graph = AddMultibodyPlantSceneGraph(builder, time_step=0.0)
-        Parser(self.plant).AddModelsFromUrl(self.urdf)
+
+        # Note that CENIC requires a continuous-time plant.
+        self.plant, _ = AddMultibodyPlantSceneGraph(builder, time_step=0.0)
+        Parser(self.plant).AddModelsFromUrl(
+            "package://drake/examples/pendulum/Pendulum.urdf"
+        )
         self.plant.Finalize()
 
-        MeshcatVisualizer.AddToBuilder(builder, scene_graph, self.meshcat)
+        if self.meshcat is not None:
+            AddDefaultVisualization(builder, self.meshcat)
 
-        controller = builder.AddSystem(PendulumPolicy(policy, self.torque_limit))
+        controller = builder.AddSystem(PendulumPolicy(policy))
         builder.Connect(
             self.plant.get_state_output_port(), controller.get_input_port()
         )
@@ -72,11 +84,11 @@ class PendulumSwingup(Task):
         return builder.Build()
 
     def reset(self, context, seed: int = 0):
-        # Start near the bottom with a small random perturbation.
+        """Start at rest at random angles between -pi and pi."""
         rng = np.random.default_rng(seed)
         plant_context = self.plant.GetMyMutableContextFromRoot(context)
-        self.plant.SetPositions(plant_context, [rng.uniform(-0.5, 0.5)])
-        self.plant.SetVelocities(plant_context, [rng.uniform(-0.5, 0.5)])
+        self.plant.SetPositions(plant_context, [rng.uniform(-np.pi, np.pi)])
+        self.plant.SetVelocities(plant_context, [0.0])
 
     def success(self, context) -> bool:
         plant_context = self.plant.GetMyContextFromRoot(context)
@@ -93,16 +105,13 @@ class PendulumSwingup(Task):
     @property
     def task_description(self):
         return (
-            "Swing a torque-limited pendulum from hanging down to upright. "
-            f"The torque is limited to {self.torque_limit} N*m, less than the "
-            "gravitational torque at horizontal, so the pendulum must be "
-            "pumped up. Success is reaching within "
+            "Swing a torque-controlled pendulum upright. Success is reaching within "
             f"{self.angle_tolerance} rad of upright with angular speed below "
             f"{self.velocity_tolerance} rad/s."
         )
 
 if __name__=="__main__":
-    dummy_policy = lambda x: 0.0
+    dummy_policy = lambda obs: np.array([0.0])
     task = PendulumSwingup(dummy_policy)
     success = task.run_episode()
     print("Success:", success)
