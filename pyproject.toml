@@ -4,4 +4,6 @@ version = "0.1.0"
 description = "A robotics benchmark built on convex error-controlled simulation."
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "drake>=1.57",
+]
