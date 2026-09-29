@@ -17,13 +17,20 @@ Action = Any
 class Task(ABC):
     """An abstract base class defining a task."""
 
-    def __init__(self, policy: Callable[[Observation], Action], accuracy: float = 1e-3):
+    def __init__(
+        self,
+        policy: Callable[[Observation], Action],
+        accuracy: float = 1e-3,
+        realtime: bool = False,
+    ):
         """Set up a simulation environment with CENIC.
 
         Args:
             policy: A function that maps observations to actions. This is what
                     we are evaluating.
             accuracy: The accuracy tolerance for error-controlled simulation.
+            realtime: If True, run in approximately real time. Otherwise the
+                      simulation will run as fast as possible.
         """
         self.diagram = self.create_scene(policy)
         self.context = self.diagram.CreateDefaultContext()
@@ -35,6 +42,7 @@ class Task(ABC):
             integration_scheme="cenic",
             accuracy=accuracy,
             use_error_control=True,
+            target_realtime_rate=1.0 if realtime else 0.0,
         )
         ApplySimulatorConfig(config, self.simulator)
 
