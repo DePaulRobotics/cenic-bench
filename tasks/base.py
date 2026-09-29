@@ -1,15 +1,13 @@
 from typing import Any
 from collections.abc import Callable
 from abc import ABC, abstractmethod
-from pydrake.all import (
+from pydrake.systems.analysis import (
     ApplySimulatorConfig,
-    Context,
-    Diagram,
-    EventStatus,
     Simulator,
     SimulatorConfig,
     SimulatorStatus,
 )
+from pydrake.systems.framework import Context, Diagram, EventStatus
 
 Observation = Any
 Action = Any

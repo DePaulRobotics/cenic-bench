@@ -1,15 +1,9 @@
 import numpy as np
-from pydrake.all import (
-    AddDefaultVisualization,
-    AddMultibodyPlantSceneGraph,
-    BasicVector,
-    Diagram,
-    DiagramBuilder,
-    LeafSystem,
-    Meshcat,
-    Parser,
-    StartMeshcat,
-)
+from pydrake.geometry import StartMeshcat
+from pydrake.multibody.parsing import Parser
+from pydrake.multibody.plant import AddMultibodyPlantSceneGraph
+from pydrake.systems.framework import Diagram, DiagramBuilder, LeafSystem
+from pydrake.visualization import AddDefaultVisualization
 
 from tasks.base import Task
 
@@ -113,5 +107,5 @@ class PendulumSwingup(Task):
 if __name__=="__main__":
     dummy_policy = lambda obs: np.array([0.0])
     task = PendulumSwingup(dummy_policy)
-    success = task.run_episode()
+    success = task.run_episode(seed=1)
     print("Success:", success)
