@@ -17,6 +17,11 @@ uv run examples/pendulum_swingup.py
 
 ## Development
 
+Run unit tests with [pytest](https://docs.pytest.org/):
+```
+uv run pytest
+```
+
 Lint and format with [ruff](https://docs.astral.sh/ruff/):
 ```
 uv run ruff check
