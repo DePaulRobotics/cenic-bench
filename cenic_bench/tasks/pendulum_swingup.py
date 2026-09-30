@@ -5,7 +5,7 @@ from pydrake.multibody.plant import AddMultibodyPlantSceneGraph
 from pydrake.systems.framework import Diagram, DiagramBuilder, LeafSystem
 from pydrake.visualization import AddDefaultVisualization
 
-from tasks.base import Task
+from cenic_bench.tasks.base import Task
 
 
 class PendulumPolicy(LeafSystem):
@@ -103,9 +103,3 @@ class PendulumSwingup(Task):
             f"{self.angle_tolerance} rad of upright with angular speed below "
             f"{self.velocity_tolerance} rad/s."
         )
-
-if __name__=="__main__":
-    dummy_policy = lambda obs: np.array([0.0])
-    task = PendulumSwingup(dummy_policy)
-    success = task.run_episode(seed=1)
-    print("Success:", success)
