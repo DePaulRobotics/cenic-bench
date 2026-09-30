@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import numpy as np
 from pydrake.geometry import StartMeshcat
 from pydrake.multibody.parsing import Parser
@@ -6,6 +8,8 @@ from pydrake.systems.framework import Diagram, DiagramBuilder, LeafSystem
 from pydrake.visualization import AddDefaultVisualization
 
 from cenic_bench.tasks.base import Task
+
+MODEL_FILE = Path(__file__).parents[1] / "models" / "pendulum" / "pendulum.sdf"
 
 
 class PendulumPolicy(LeafSystem):
@@ -60,9 +64,7 @@ class PendulumSwingup(Task):
 
         # Note that CENIC requires a continuous-time plant.
         self.plant, _ = AddMultibodyPlantSceneGraph(builder, time_step=0.0)
-        Parser(self.plant).AddModelsFromUrl(
-            "package://drake/examples/pendulum/Pendulum.urdf"
-        )
+        Parser(self.plant).AddModels(str(MODEL_FILE))
         self.plant.Finalize()
 
         if self.meshcat is not None:

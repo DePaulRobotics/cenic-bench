@@ -40,7 +40,7 @@ def energy_shaping_policy(obs):
     desired_energy = mass * gravity * length
 
     # Energy pumping plus compensation for joint damping.
-    k = 0.1
+    k = 1.0
     u = k * theta_dot * (desired_energy - energy) + damping * theta_dot
     return np.array([u])
 
