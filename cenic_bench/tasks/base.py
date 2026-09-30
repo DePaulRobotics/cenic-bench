@@ -1,6 +1,7 @@
-from typing import Any
-from collections.abc import Callable
 from abc import ABC, abstractmethod
+from collections.abc import Callable
+from typing import Any
+
 from pydrake.systems.analysis import (
     ApplySimulatorConfig,
     Simulator,
@@ -11,6 +12,7 @@ from pydrake.systems.framework import Context, Diagram, EventStatus
 
 Observation = Any
 Action = Any
+
 
 class Task(ABC):
     """An abstract base class defining a task."""
@@ -57,7 +59,7 @@ class Task(ABC):
     @abstractmethod
     def create_scene(self, policy: Callable[[Observation], Action]) -> Diagram:
         """Create a drake system diagram representing the simulated scenario.
-        
+
         Args:
             policy: The controller to be evaluated. This method typically wraps
                     the policy in a Drake LeafSystem for simulation.
@@ -69,7 +71,7 @@ class Task(ABC):
     @abstractmethod
     def reset(self, context: Context, seed: int = 0) -> None:
         """Set a fresh, valid initial state for the task.
-        
+
         Args:
             context: The simulated system state (changed on output.)
             seed: A random seed defining the initial state.
@@ -103,7 +105,7 @@ class Task(ABC):
     def task_description(self) -> str:
         """A natural language description of the task."""
         pass
-    
+
     def run_episode(self, seed: int = 0) -> bool:
         """Run a single episode of the task.
 
@@ -121,5 +123,3 @@ class Task(ABC):
             status.reason()
             == SimulatorStatus.ReturnReason.kReachedTerminationCondition
         )
-
-

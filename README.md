@@ -14,3 +14,11 @@ Test a simple pendulum swingup task:
 ```
 uv run examples/pendulum_swingup.py
 ```
+
+## Development
+
+Lint and format with [ruff](https://docs.astral.sh/ruff/):
+```
+uv run ruff check
+uv run ruff format
+```

@@ -90,7 +90,10 @@ class PendulumSwingup(Task):
         theta_dot = self.plant.GetVelocities(plant_context)[0]
         # Wrapped angular distance from upright (theta = pi).
         error = np.abs(np.mod(theta, 2 * np.pi) - np.pi)
-        return error < self.angle_tolerance and abs(theta_dot) < self.velocity_tolerance
+        return (
+            error < self.angle_tolerance
+            and abs(theta_dot) < self.velocity_tolerance
+        )
 
     @property
     def timeout(self):
@@ -99,7 +102,8 @@ class PendulumSwingup(Task):
     @property
     def task_description(self):
         return (
-            "Swing a torque-controlled pendulum upright. Success is reaching within "
+            "Swing a torque-controlled pendulum upright. "
+            "Success is reaching within "
             f"{self.angle_tolerance} rad of upright with angular speed below "
             f"{self.velocity_tolerance} rad/s."
         )

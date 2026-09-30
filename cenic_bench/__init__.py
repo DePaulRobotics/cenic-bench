@@ -1,1 +1,1 @@
-"""CENIC-Bench: a robotics benchmark built on convex error-controlled simulation."""
+"""CENIC-Bench: a robotics benchmark built on error-controlled simulation."""
