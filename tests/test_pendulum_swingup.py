@@ -76,15 +76,26 @@ def test_observation():
     theta, theta_dot = 0.3, -0.7
     set_state(task, theta, theta_dot)
 
-    # Evaluating the plant's actuation input queries the policy.
-    torque = task.plant.get_actuation_input_port().Eval(
-        task.plant.GetMyContextFromRoot(task.context)
-    )
-
-    np.testing.assert_array_equal(torque, [0.0])
+    # A periodic discrete update queries the policy.
+    task.diagram.EvalUniquePeriodicDiscreteUpdate(task.context)
     np.testing.assert_allclose(
         observations[-1], [np.cos(theta), np.sin(theta), theta_dot]
     )
+
+
+def test_control_rate():
+    num_calls = 0
+
+    def counting_policy(obs):
+        nonlocal num_calls
+        num_calls += 1
+        return np.array([0.0])
+
+    # Seed 1 fails, so the episode runs for the full timeout.
+    task = PendulumSwingup(counting_policy, visualize=False)
+    assert not task.run_episode(seed=1)
+    # Queries at t = 0, 0.05, ..., up to but not including the timeout.
+    assert num_calls == task.timeout * task.control_rate
 
 
 def test_zero_policy_fails(task):

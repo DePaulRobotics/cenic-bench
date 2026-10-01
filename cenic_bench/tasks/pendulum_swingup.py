@@ -9,19 +9,27 @@ from cenic_bench.tasks.base import Task
 
 
 class PendulumPolicy(LeafSystem):
-    """Wraps a policy callable for compatibility with a Drake diagram."""
+    """Wraps a policy callable for compatibility with a Drake diagram.
 
-    def __init__(self, policy):
+    The policy is queried at a fixed rate, and the resulting torque is held
+    constant (zero-order hold) between queries.
+    """
+
+    def __init__(self, policy, control_rate: float):
         super().__init__()
         self.policy = policy
         self.state_port = self.DeclareVectorInputPort("state", 2)
-        self.DeclareVectorOutputPort("torque", 1, self.CalcTorque)
+        torque = self.DeclareDiscreteState(1)
+        self.DeclarePeriodicDiscreteUpdateEvent(
+            period_sec=1.0 / control_rate, offset_sec=0.0, update=self.Update
+        )
+        self.DeclareStateOutputPort("torque", torque)
 
-    def CalcTorque(self, context, output):
+    def Update(self, context, discrete_state):
         theta, theta_dot = self.state_port.Eval(context)
         obs = np.array([np.cos(theta), np.sin(theta), theta_dot])
         u = self.policy(obs)
-        output.SetFromVector(u)
+        discrete_state.set_value(u)
 
 
 class PendulumSwingup(Task):
@@ -33,7 +41,7 @@ class PendulumSwingup(Task):
         - The angular velocity of the pendulum
 
     Actions:
-        - The torque applied to the pendulum
+        - The torque applied to the pendulum, updated at 20 Hz
 
     Success conditions:
         - The pendulum is within 0.1 radians of upright
@@ -42,6 +50,7 @@ class PendulumSwingup(Task):
 
     angle_tolerance = 0.1  # rad, distance from upright to count as success
     velocity_tolerance = 0.5  # rad/s, max speed at upright to count as success
+    control_rate = 20.0  # Hz, how often the policy is queried
 
     def __init__(self, policy, visualize: bool = True):
         """Initialize the pendulum swing-up task.
@@ -53,7 +62,7 @@ class PendulumSwingup(Task):
                        simulation runs as fast as possible.
         """
         self.meshcat = StartMeshcat() if visualize else None
-        super().__init__(policy, realtime=visualize)
+        super().__init__(policy, realtime=visualize, accuracy=1e-3)
 
     def create_scene(self, policy) -> Diagram:
         builder = DiagramBuilder()
@@ -68,7 +77,9 @@ class PendulumSwingup(Task):
         if self.meshcat is not None:
             AddDefaultVisualization(builder, self.meshcat)
 
-        controller = builder.AddSystem(PendulumPolicy(policy))
+        controller = builder.AddSystem(
+            PendulumPolicy(policy, self.control_rate)
+        )
         builder.Connect(
             self.plant.get_state_output_port(), controller.get_input_port()
         )
@@ -80,6 +91,7 @@ class PendulumSwingup(Task):
     def reset(self, context, seed: int = 0):
         """Start at rest at random angles between -pi and pi."""
         rng = np.random.default_rng(seed)
+        self.diagram.SetDefaultContext(context)
         plant_context = self.plant.GetMyMutableContextFromRoot(context)
         self.plant.SetPositions(plant_context, [rng.uniform(-np.pi, np.pi)])
         self.plant.SetVelocities(plant_context, [0.0])
@@ -110,7 +122,10 @@ class PendulumSwingup(Task):
 
     @property
     def action_description(self):
-        return "The torque to apply to the pendulum."
+        return (
+            "The torque to apply to the pendulum, held constant between "
+            f"policy queries at {self.control_rate} Hz."
+        )
 
     @property
     def action_example(self):
