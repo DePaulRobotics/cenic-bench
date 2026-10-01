@@ -30,11 +30,6 @@ example.
 
 ## Development
 
-Install all optional development dependencies:
-```
-uv sync --all-extras
-```
-
 Run unit tests with [pytest](https://docs.pytest.org/):
 ```
 uv run pytest
