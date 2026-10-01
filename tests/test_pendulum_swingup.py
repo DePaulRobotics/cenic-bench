@@ -30,7 +30,7 @@ def test_properties(task):
     assert isinstance(task.observation_description, str)
     assert task.observation_description
     assert isinstance(task.observation_example, np.ndarray)
-    assert task.observation_example.size == 3
+    assert task.observation_example.size == 30
 
 
 def test_reset(task):
