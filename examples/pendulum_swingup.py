@@ -8,7 +8,7 @@ from cenic_bench.tasks import PendulumSwingup
 
 
 def dummy_policy(obs):
-    """A simple policy example that just returns zero torque."""
+    """A simple policy example that just returns zero torque aaaaand here's a too long docstring."""
     return np.array([0.0])
 
 
