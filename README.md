@@ -1,6 +1,11 @@
 # CENIC-Bench
 
-A robotics benchmark built on convex error-controlled simulation.
+A robotics benchmark built on [convex error-controlled
+simulation](https://arxiv.org/abs/2511.08771).
+
+> [!WARNING]
+> This benchmark is in the early stages of development. Expect rough edges and
+> breaking changes.
 
 ## Usage
 
