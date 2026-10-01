@@ -107,3 +107,19 @@ class PendulumSwingup(Task):
             f"{self.angle_tolerance} rad of upright with angular speed below "
             f"{self.velocity_tolerance} rad/s."
         )
+
+    @property
+    def action_description(self):
+        return "The torque to apply to the pendulum."
+
+    @property
+    def action_example(self):
+        return np.array([0.0])
+
+    @property
+    def observation_description(self):
+        return "Sine and cosine of the pendulum's angle, and angular velocity."
+
+    @property
+    def observation_example(self):
+        return np.array([1.0, 0.0, 0.0])

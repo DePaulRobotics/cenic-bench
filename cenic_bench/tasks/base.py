@@ -106,6 +106,30 @@ class Task(ABC):
         """A natural language description of the task."""
         pass
 
+    @property
+    @abstractmethod
+    def action_description(self) -> str:
+        """A natural language description of the action space."""
+        pass
+
+    @property
+    @abstractmethod
+    def action_example(self) -> Action:
+        """An example of a valid (correctly shaped and formatted) action."""
+        pass
+
+    @property
+    @abstractmethod
+    def observation_description(self) -> str:
+        """A natural language description of the observation space."""
+        pass
+
+    @property
+    @abstractmethod
+    def observation_example(self) -> Observation:
+        """An example of a valid observation."""
+        pass
+
     def run_episode(self, seed: int = 0) -> bool:
         """Run a single episode of the task.
 

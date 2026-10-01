@@ -23,6 +23,14 @@ def test_properties(task):
     assert task.timeout > 0
     assert isinstance(task.task_description, str)
     assert task.task_description
+    assert isinstance(task.action_description, str)
+    assert task.action_description
+    assert isinstance(task.action_example, np.ndarray)
+    assert task.action_example.size == 1
+    assert isinstance(task.observation_description, str)
+    assert task.observation_description
+    assert isinstance(task.observation_example, np.ndarray)
+    assert task.observation_example.size == 3
 
 
 def test_reset(task):
