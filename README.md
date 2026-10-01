@@ -15,10 +15,18 @@ Install with [uv](https://docs.astral.sh/uv/):
 uv sync
 ```
 
-Test a simple pendulum swingup task:
+CENIC-Bench is designed to evaluate any control policy, whether it's based on
+classical control, reinforcement learning, a large AI model, or anything else.
+The API is simply a python function mapping observations to actions:
+```python
+policy: Callable[[Observation], Action]
 ```
-uv run examples/pendulum_swingup.py
-```
+Given such a policy and a compatible task, CENIC-Bench sets randomized initial
+conditions, simulates the system with error-controlled integration, and
+evaluates whether or not the task was completed successfully.
+
+See [`examples/pendulum_swingup.py`](examples/pendulum_swingup.py) for a simple
+example.
 
 ## Development
 

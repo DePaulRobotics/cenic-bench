@@ -63,11 +63,20 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    task = PendulumSwingup(
+    # Create a policy function mapping observations to actions.
+    policy_fn = (
         energy_shaping_policy
         if args.policy == "energy_shaping"
-        else dummy_policy,
+        else dummy_policy
+    )
+
+    # Define the task.
+    task = PendulumSwingup(
+        policy=policy_fn,
         visualize=not args.headless,
     )
+
+    # Simulate from a random initial state, and evaluate whether the policy was
+    # successful or not.
     success = task.run_episode(seed=args.seed)
     print("Success:", success)
