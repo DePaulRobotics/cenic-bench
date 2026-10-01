@@ -30,6 +30,11 @@ example.
 
 ## Development
 
+Install all optional development dependencies:
+```
+uv sync --all-extras
+```
+
 Run unit tests with [pytest](https://docs.pytest.org/):
 ```
 uv run pytest
@@ -40,3 +45,5 @@ Lint and format with [ruff](https://docs.astral.sh/ruff/):
 uv run ruff check
 uv run ruff format
 ```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for developer details.
