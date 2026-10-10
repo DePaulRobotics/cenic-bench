@@ -105,7 +105,7 @@
   <joint name="world_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <parent link="world"/>
-    <child link="frame_link"/>
+    <child link="tabletop_link"/>
   </joint>
   <link name="cam_high_mount_link">
     <inertial>
