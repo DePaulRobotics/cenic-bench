@@ -46,18 +46,21 @@ class CartPoleSwingup(Task):
         - The angular velocity of the pole
 
     Actions:
-        - The horizontal force applied to the cart, updated at 50 Hz and
-          limited to +/- 10 N
+        - The horizontal force applied to the cart, held constant between
+          policy queries. Its magnitude is limited by the effort limit of the
+          cart's joint, defined in cart_pole.sdf.
 
     Success conditions:
-        - The pole is within 0.1 radians of upright
-        - The angular velocity of the pole is below 0.5 radians/s
-        - The cart speed is below 0.5 m/s
+        - The pole is close to upright
+        - The pole is nearly still
+        - The cart is close to the center of the rail
+        - The cart is nearly still
     """
 
     angle_tolerance = 0.1  # rad, distance from upright to count as success
     velocity_tolerance = 0.5  # rad/s, max pole speed at upright
     cart_velocity_tolerance = 0.5  # m/s, max cart speed at upright
+    cart_position_tolerance = 0.1  # m, max distance of cart from center
     control_rate = 50.0  # Hz, how often the policy is queried
 
     def __init__(self, policy, visualize: bool = True):
@@ -107,8 +110,9 @@ class CartPoleSwingup(Task):
         self.plant.SetVelocities(plant_context, [0.0, 0.0])
 
     def success(self, context) -> bool:
+        """Pole near upright and centered cart, both nearly at rest."""
         plant_context = self.plant.GetMyContextFromRoot(context)
-        theta = self.plant.GetPositions(plant_context)[1]
+        x, theta = self.plant.GetPositions(plant_context)
         x_dot, theta_dot = self.plant.GetVelocities(plant_context)
         # Wrapped angular distance from upright (theta = pi).
         error = np.abs(np.mod(theta, 2 * np.pi) - np.pi)
@@ -116,6 +120,7 @@ class CartPoleSwingup(Task):
             error < self.angle_tolerance
             and abs(theta_dot) < self.velocity_tolerance
             and abs(x_dot) < self.cart_velocity_tolerance
+            and abs(x) < self.cart_position_tolerance
         )
 
     @property
@@ -128,15 +133,17 @@ class CartPoleSwingup(Task):
             "Swing a pole upright by pushing the cart it is hinged to. "
             "Success is reaching within "
             f"{self.angle_tolerance} rad of upright with pole angular speed "
-            f"below {self.velocity_tolerance} rad/s and cart speed below "
-            f"{self.cart_velocity_tolerance} m/s."
+            f"below {self.velocity_tolerance} rad/s, with the cart within "
+            f"{self.cart_position_tolerance} m of the center and cart speed "
+            f"below {self.cart_velocity_tolerance} m/s."
         )
 
     @property
     def action_description(self):
+        max_force = self.plant.GetJointActuatorByName("x").effort_limit()
         return (
             "The horizontal force (N) to apply to the cart, limited to "
-            "+/- 10 N and held constant between policy queries at "
+            f"+/- {max_force} N and held constant between policy queries at "
             f"{self.control_rate} Hz."
         )
 
@@ -147,8 +154,9 @@ class CartPoleSwingup(Task):
     @property
     def observation_description(self):
         return (
-            "Cart position, cosine and sine of the pole's angle (zero when "
-            "hanging down), cart velocity, and pole angular velocity."
+            "Cart position (zero at the center), cosine and sine of the "
+            "pole's angle (zero when hanging down), cart velocity, and pole "
+            "angular velocity."
         )
 
     @property

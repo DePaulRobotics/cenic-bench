@@ -40,6 +40,8 @@ def test_only_cart_is_actuated(task):
     )
     assert actuator.joint().name() == "x"
     assert actuator.effort_limit() == 10.0
+    # The action description reports the limit from the SDF.
+    assert "10.0 N" in task.action_description
 
 
 def test_reset(task):
@@ -67,7 +69,10 @@ def test_reset(task):
         (0.0, np.pi, 0.0, 0.0, True),  # upright at rest
         (0.0, -np.pi, 0.0, 0.0, True),  # upright, wrapped angle
         (0.0, 3 * np.pi + 0.05, 0.1, 0.1, True),  # near upright, wrapped
-        (5.0, np.pi, 0.0, 0.0, True),  # cart position doesn't matter
+        (0.05, np.pi, 0.0, 0.0, True),  # cart slightly off center
+        (-0.05, np.pi, 0.0, 0.0, True),  # cart slightly off center, left
+        (0.2, np.pi, 0.0, 0.0, False),  # cart too far from center
+        (5.0, np.pi, 0.0, 0.0, False),  # cart far from center
         (0.0, np.pi, 0.0, 1.0, False),  # pole moving too fast
         (0.0, np.pi, 1.0, 0.0, False),  # cart moving too fast
         (0.0, np.pi - 0.2, 0.0, 0.0, False),  # too far from upright
