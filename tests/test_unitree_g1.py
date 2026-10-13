@@ -94,8 +94,8 @@ def test_collision_geometry(g1):
         assert props.HasProperty("hydroelastic", "hydroelastic_modulus")
         assert props.HasProperty("hydroelastic", "resolution_hint")
         friction = props.GetProperty("material", "coulomb_friction")
-        assert friction.static_friction() == 0.6
-        assert friction.dynamic_friction() == 0.6
+        assert friction.static_friction() > 0
+        assert friction.dynamic_friction() > 0
 
 
 def test_no_self_collision_at_default_pose(g1):

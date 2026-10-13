@@ -1,14 +1,6 @@
-The SDF and meshes in this directory are adapted from the Unitree G1 model in
-[mjlab](https://github.com/mujocolab/mjlab) (commit `a6a76e59bf`,
-`src/mjlab/asset_zoo/robots/unitree_g1/`). The meshes are identical to those
-in [MuJoCo Menagerie's
-unitree_g1](https://github.com/google-deepmind/mujoco_menagerie/tree/main/unitree_g1),
-which is derived from Unitree's
-[g1_description](https://github.com/unitreerobotics/unitree_ros/tree/master/robots/g1_description).
-
-Changes from mjlab: converted from MJCF to SDF, meshes converted from STL to
-OBJ, and added effort limits and armature (from mjlab's `g1_constants.py`),
-hydroelastic contact properties, friction, and collision filter groups.
+The files in this directory are modified from the Unitree G1 model in
+mjlab and Unitree's g1_description. See [README.md](README.md) for the
+sources and the changes.
 
 The original Unitree model and meshes are distributed under the following
 license:
