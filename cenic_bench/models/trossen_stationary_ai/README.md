@@ -15,7 +15,7 @@ Description](https://github.com/TrossenRobotics/trossen_arm_description)
 
 ## Actuation
 
-Every joint (6 arm revolute joints + 1 gripper prismatic joints per arm) has a built-in PD controller (`drake:controller_gains` in the URDF), so the model is driven via `plant.get_desired_state_input_port(...)`, not raw torque.
+Every joint (6 arm revolute joints + 1 gripper prismatic joints per arm) has a built-in PD controller (`drake:controller_gains` in the URDF). The desired-state input port (`plant.get_desired_state_input_port(...)`) supplies the PD command, while the actuation input port (`plant.get_actuation_input_port(...)`) remains available for optional feed-forward actuation.
 **The gains (p=500, d=50) are placeholders carried over from the source description and have not been system-identified against the real hardware** — tracked in issue #12.
 
 ## Collision geometry
