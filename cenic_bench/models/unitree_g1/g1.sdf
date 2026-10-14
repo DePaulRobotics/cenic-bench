@@ -5,8 +5,10 @@
   src/mjlab/asset_zoo/robots/unitree_g1/xmls/g1.xml). See README.md and LICENSE.md.
 
   Kinematics, inertias, joint limits, and collision capsules/spheres are
-  taken from g1.xml. Effort limits and armature (drake:rotor_inertia with
-  gear ratio 1) come from mjlab's g1_constants.py. The 50 N m waist
+  taken from g1.xml. Effort limits, armature (drake:rotor_inertia with
+  gear ratio 1) and PD gains (drake:controller_gains) come from mjlab's
+  g1_constants.py, which sets p = armature * w^2 and d = 2 * zeta *
+  armature * w with w = 2 pi * 10 Hz and zeta = 2. The 50 N m waist
   pitch/roll and ankle limits are mjlab's approximation of a two-motor
   linkage (2 x 25 N m), not a Unitree spec. Meshes are visual only.
 -->
@@ -58,6 +60,7 @@
       <child>left_hip_pitch_link</child>
       <axis><xyz>0 1 0</xyz><limit><lower>-2.5307</lower><upper>2.8798</upper><effort>88</effort></limit></axis>
       <drake:rotor_inertia>0.01017752</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="40.1792386" d="2.55788978"/>
     </joint>
 
     <link name="left_hip_roll_link">
@@ -87,6 +90,7 @@
       <child>left_hip_roll_link</child>
       <axis><xyz>1 0 0</xyz><limit><lower>-0.5236</lower><upper>2.9671</upper><effort>139</effort></limit></axis>
       <drake:rotor_inertia>0.025101925</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="99.0984278" d="6.30880185"/>
     </joint>
 
     <link name="left_hip_yaw_link">
@@ -116,6 +120,7 @@
       <child>left_hip_yaw_link</child>
       <axis><xyz>0 0 1</xyz><limit><lower>-2.7576</lower><upper>2.7576</upper><effort>88</effort></limit></axis>
       <drake:rotor_inertia>0.01017752</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="40.1792386" d="2.55788978"/>
     </joint>
 
     <link name="left_knee_link">
@@ -155,6 +160,7 @@
       <child>left_knee_link</child>
       <axis><xyz>0 1 0</xyz><limit><lower>-0.087267</lower><upper>2.8798</upper><effort>139</effort></limit></axis>
       <drake:rotor_inertia>0.025101925</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="99.0984278" d="6.30880185"/>
     </joint>
 
     <link name="left_ankle_pitch_link">
@@ -174,6 +180,7 @@
       <child>left_ankle_pitch_link</child>
       <axis><xyz>0 1 0</xyz><limit><lower>-0.87267</lower><upper>0.5236</upper><effort>50</effort></limit></axis>
       <drake:rotor_inertia>0.00721945</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="28.5012462" d="1.81444569"/>
     </joint>
 
     <link name="left_ankle_roll_link">
@@ -264,6 +271,7 @@
       <child>left_ankle_roll_link</child>
       <axis><xyz>1 0 0</xyz><limit><lower>-0.2618</lower><upper>0.2618</upper><effort>50</effort></limit></axis>
       <drake:rotor_inertia>0.00721945</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="28.5012462" d="1.81444569"/>
     </joint>
 
     <link name="right_hip_pitch_link">
@@ -283,6 +291,7 @@
       <child>right_hip_pitch_link</child>
       <axis><xyz>0 1 0</xyz><limit><lower>-2.5307</lower><upper>2.8798</upper><effort>88</effort></limit></axis>
       <drake:rotor_inertia>0.01017752</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="40.1792386" d="2.55788978"/>
     </joint>
 
     <link name="right_hip_roll_link">
@@ -312,6 +321,7 @@
       <child>right_hip_roll_link</child>
       <axis><xyz>1 0 0</xyz><limit><lower>-2.9671</lower><upper>0.5236</upper><effort>139</effort></limit></axis>
       <drake:rotor_inertia>0.025101925</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="99.0984278" d="6.30880185"/>
     </joint>
 
     <link name="right_hip_yaw_link">
@@ -341,6 +351,7 @@
       <child>right_hip_yaw_link</child>
       <axis><xyz>0 0 1</xyz><limit><lower>-2.7576</lower><upper>2.7576</upper><effort>88</effort></limit></axis>
       <drake:rotor_inertia>0.01017752</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="40.1792386" d="2.55788978"/>
     </joint>
 
     <link name="right_knee_link">
@@ -380,6 +391,7 @@
       <child>right_knee_link</child>
       <axis><xyz>0 1 0</xyz><limit><lower>-0.087267</lower><upper>2.8798</upper><effort>139</effort></limit></axis>
       <drake:rotor_inertia>0.025101925</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="99.0984278" d="6.30880185"/>
     </joint>
 
     <link name="right_ankle_pitch_link">
@@ -399,6 +411,7 @@
       <child>right_ankle_pitch_link</child>
       <axis><xyz>0 1 0</xyz><limit><lower>-0.87267</lower><upper>0.5236</upper><effort>50</effort></limit></axis>
       <drake:rotor_inertia>0.00721945</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="28.5012462" d="1.81444569"/>
     </joint>
 
     <link name="right_ankle_roll_link">
@@ -489,6 +502,7 @@
       <child>right_ankle_roll_link</child>
       <axis><xyz>1 0 0</xyz><limit><lower>-0.2618</lower><upper>0.2618</upper><effort>50</effort></limit></axis>
       <drake:rotor_inertia>0.00721945</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="28.5012462" d="1.81444569"/>
     </joint>
 
     <link name="waist_yaw_link">
@@ -508,6 +522,7 @@
       <child>waist_yaw_link</child>
       <axis><xyz>0 0 1</xyz><limit><lower>-2.618</lower><upper>2.618</upper><effort>88</effort></limit></axis>
       <drake:rotor_inertia>0.01017752</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="40.1792386" d="2.55788978"/>
     </joint>
 
     <link name="waist_roll_link">
@@ -527,6 +542,7 @@
       <child>waist_roll_link</child>
       <axis><xyz>1 0 0</xyz><limit><lower>-0.52</lower><upper>0.52</upper><effort>50</effort></limit></axis>
       <drake:rotor_inertia>0.00721945</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="28.5012462" d="1.81444569"/>
     </joint>
 
     <link name="torso_link">
@@ -577,6 +593,7 @@
       <child>torso_link</child>
       <axis><xyz>0 1 0</xyz><limit><lower>-0.52</lower><upper>0.52</upper><effort>50</effort></limit></axis>
       <drake:rotor_inertia>0.00721945</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="28.5012462" d="1.81444569"/>
     </joint>
 
     <link name="left_shoulder_pitch_link">
@@ -596,6 +613,7 @@
       <child>left_shoulder_pitch_link</child>
       <axis><xyz>0 1 0</xyz><limit><lower>-3.0892</lower><upper>2.6704</upper><effort>25</effort></limit></axis>
       <drake:rotor_inertia>0.003609725</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="14.2506231" d="0.907222843"/>
     </joint>
 
     <link name="left_shoulder_roll_link">
@@ -615,6 +633,7 @@
       <child>left_shoulder_roll_link</child>
       <axis><xyz>1 0 0</xyz><limit><lower>-1.5882</lower><upper>2.2515</upper><effort>25</effort></limit></axis>
       <drake:rotor_inertia>0.003609725</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="14.2506231" d="0.907222843"/>
     </joint>
 
     <link name="left_shoulder_yaw_link">
@@ -644,6 +663,7 @@
       <child>left_shoulder_yaw_link</child>
       <axis><xyz>0 0 1</xyz><limit><lower>-2.618</lower><upper>2.618</upper><effort>25</effort></limit></axis>
       <drake:rotor_inertia>0.003609725</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="14.2506231" d="0.907222843"/>
     </joint>
 
     <link name="left_elbow_link">
@@ -673,6 +693,7 @@
       <child>left_elbow_link</child>
       <axis><xyz>0 1 0</xyz><limit><lower>-1.0472</lower><upper>2.0944</upper><effort>25</effort></limit></axis>
       <drake:rotor_inertia>0.003609725</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="14.2506231" d="0.907222843"/>
     </joint>
 
     <link name="left_wrist_roll_link">
@@ -692,6 +713,7 @@
       <child>left_wrist_roll_link</child>
       <axis><xyz>1 0 0</xyz><limit><lower>-1.97222</lower><upper>1.97222</upper><effort>25</effort></limit></axis>
       <drake:rotor_inertia>0.003609725</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="14.2506231" d="0.907222843"/>
     </joint>
 
     <link name="left_wrist_pitch_link">
@@ -721,6 +743,7 @@
       <child>left_wrist_pitch_link</child>
       <axis><xyz>0 1 0</xyz><limit><lower>-1.61443</lower><upper>1.61443</upper><effort>5</effort></limit></axis>
       <drake:rotor_inertia>0.00425</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="16.7783275" d="1.0681415"/>
     </joint>
 
     <link name="left_wrist_yaw_link">
@@ -756,6 +779,7 @@
       <child>left_wrist_yaw_link</child>
       <axis><xyz>0 0 1</xyz><limit><lower>-1.61443</lower><upper>1.61443</upper><effort>5</effort></limit></axis>
       <drake:rotor_inertia>0.00425</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="16.7783275" d="1.0681415"/>
     </joint>
 
     <link name="right_shoulder_pitch_link">
@@ -775,6 +799,7 @@
       <child>right_shoulder_pitch_link</child>
       <axis><xyz>0 1 0</xyz><limit><lower>-3.0892</lower><upper>2.6704</upper><effort>25</effort></limit></axis>
       <drake:rotor_inertia>0.003609725</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="14.2506231" d="0.907222843"/>
     </joint>
 
     <link name="right_shoulder_roll_link">
@@ -794,6 +819,7 @@
       <child>right_shoulder_roll_link</child>
       <axis><xyz>1 0 0</xyz><limit><lower>-2.2515</lower><upper>1.5882</upper><effort>25</effort></limit></axis>
       <drake:rotor_inertia>0.003609725</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="14.2506231" d="0.907222843"/>
     </joint>
 
     <link name="right_shoulder_yaw_link">
@@ -823,6 +849,7 @@
       <child>right_shoulder_yaw_link</child>
       <axis><xyz>0 0 1</xyz><limit><lower>-2.618</lower><upper>2.618</upper><effort>25</effort></limit></axis>
       <drake:rotor_inertia>0.003609725</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="14.2506231" d="0.907222843"/>
     </joint>
 
     <link name="right_elbow_link">
@@ -852,6 +879,7 @@
       <child>right_elbow_link</child>
       <axis><xyz>0 1 0</xyz><limit><lower>-1.0472</lower><upper>2.0944</upper><effort>25</effort></limit></axis>
       <drake:rotor_inertia>0.003609725</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="14.2506231" d="0.907222843"/>
     </joint>
 
     <link name="right_wrist_roll_link">
@@ -871,6 +899,7 @@
       <child>right_wrist_roll_link</child>
       <axis><xyz>1 0 0</xyz><limit><lower>-1.97222</lower><upper>1.97222</upper><effort>25</effort></limit></axis>
       <drake:rotor_inertia>0.003609725</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="14.2506231" d="0.907222843"/>
     </joint>
 
     <link name="right_wrist_pitch_link">
@@ -900,6 +929,7 @@
       <child>right_wrist_pitch_link</child>
       <axis><xyz>0 1 0</xyz><limit><lower>-1.61443</lower><upper>1.61443</upper><effort>5</effort></limit></axis>
       <drake:rotor_inertia>0.00425</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="16.7783275" d="1.0681415"/>
     </joint>
 
     <link name="right_wrist_yaw_link">
@@ -935,6 +965,7 @@
       <child>right_wrist_yaw_link</child>
       <axis><xyz>0 0 1</xyz><limit><lower>-1.61443</lower><upper>1.61443</upper><effort>5</effort></limit></axis>
       <drake:rotor_inertia>0.00425</drake:rotor_inertia><drake:gear_ratio>1</drake:gear_ratio>
+      <drake:controller_gains p="16.7783275" d="1.0681415"/>
     </joint>
 
     <drake:collision_filter_group name="exclude0">

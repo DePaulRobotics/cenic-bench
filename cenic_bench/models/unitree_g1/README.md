@@ -33,6 +33,14 @@ The conversion script is not part of this repository.
   written as `drake:rotor_inertia` with a gear ratio of 1. The waist pitch/roll
   and ankle limits are mjlab's approximation of a linkage driven by two motors,
   not a Unitree spec.
+- PD gains from mjlab's `g1_constants.py`, written as `drake:controller_gains`
+  on every joint. mjlab sets the stiffness from the armature and a 10 Hz
+  natural frequency, and the damping for a damping ratio of 2. A task can
+  override them with `JointActuator.set_controller_gains()` before
+  `Finalize()`. The PD is only active when the task connects the plant's
+  desired state input port, and the effort limit clamps the PD plus the
+  actuation input. On their own, these gains don't hold the robot standing at
+  mjlab's HOME pose.
 - Hydroelastic contact properties and friction on every collision geometry.
 - Collision filter groups for mjlab's `<contact><exclude>` pairs.
 
@@ -42,7 +50,6 @@ The values are in `g1.sdf`.
 
 - MuJoCo sensors, the light and the camera. Drake doesn't use them, and sensors
   belong in tasks.
-- PD gains, which belong in a task.
 - Velocity limits. mjlab defines them but doesn't apply them.
 
 ## Contact

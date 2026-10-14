@@ -38,7 +38,8 @@ def test_joints(g1):
 
 
 def test_actuators(g1):
-    """Every revolute joint, and only those, has a finite effort limit."""
+    """Every revolute joint, and only those, has a finite effort limit and
+    PD gains."""
     plant, _, _ = g1
     actuators = [
         plant.get_joint_actuator(i) for i in plant.GetJointActuatorIndices()
@@ -52,6 +53,9 @@ def test_actuators(g1):
     assert {a.joint().name() for a in actuators} == revolute
     for a in actuators:
         assert 0 < a.effort_limit() < np.inf
+        assert a.has_controller()
+        assert a.get_controller_gains().p > 0
+        assert a.get_controller_gains().d > 0
 
 
 @pytest.mark.parametrize(
