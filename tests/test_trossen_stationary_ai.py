@@ -3,7 +3,9 @@ from pydrake.multibody.plant import MultibodyPlant
 
 from cenic_bench.parsing import make_parser
 
-MODEL_URL = "package://cenic_bench/models/trossen_stationary_ai/stationary_ai.urdf"
+MODEL_URL = (
+    "package://cenic_bench/models/trossen_stationary_ai/stationary_ai.urdf"
+)
 
 
 def _load_plant():
