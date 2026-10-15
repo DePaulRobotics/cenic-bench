@@ -4,7 +4,9 @@ from cenic_bench.parsing import PACKAGE_ROOT, make_parser
 
 
 def test_make_parser_loads_all_models():
-    model_files = sorted((PACKAGE_ROOT / "models").rglob("*.sdf"))
+    model_files = sorted(
+        (PACKAGE_ROOT / "models").rglob("*.sdf"),
+    ) + sorted((PACKAGE_ROOT / "models").rglob("*.urdf"))
     assert model_files
 
     for model_file in model_files:
