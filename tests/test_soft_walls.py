@@ -52,14 +52,17 @@ def force_on_bob(plant, context, wall):
 
 
 @pytest.mark.parametrize("wall", ["left_wall", "right_wall"])
-def test_wall_stiffness(wall):
-    """Each wall declares a positive point contact stiffness."""
+def test_wall_contact_properties(wall):
+    """Each wall declares a positive point contact stiffness and a positive
+    Hunt-Crossley dissipation."""
     plant, scene_graph, _ = make_scene()
     inspector = scene_graph.model_inspector()
     (wall_id,) = plant.GetCollisionGeometriesForBody(plant.GetBodyByName(wall))
     props = inspector.GetProximityProperties(wall_id)
     assert props.HasProperty("material", "point_contact_stiffness")
     assert props.GetProperty("material", "point_contact_stiffness") > 0
+    assert props.HasProperty("material", "hunt_crossley_dissipation")
+    assert props.GetProperty("material", "hunt_crossley_dissipation") > 0
 
 
 @pytest.mark.parametrize("wall, side", WALLS)
