@@ -60,8 +60,8 @@ class CartPoleWalls(Task):
     """
 
     angle_tolerance = 0.05  # rad, distance from upright to count as success
-    velocity_tolerance = 0.2  # rad/s, max pole speed at upright
-    cart_velocity_tolerance = 0.2  # m/s, max cart speed at upright
+    velocity_tolerance = 0.1  # rad/s, max pole speed at upright
+    cart_velocity_tolerance = 0.1  # m/s, max cart speed at upright
     cart_position_tolerance = 0.05  # m, max distance of cart from center
     control_rate = 50.0  # Hz, how often the policy is queried
 
@@ -133,7 +133,7 @@ class CartPoleWalls(Task):
 
     @property
     def timeout(self):
-        return 5.0
+        return 14.0
 
     @property
     def task_description(self):
