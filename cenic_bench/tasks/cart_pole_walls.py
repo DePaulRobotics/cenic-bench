@@ -38,7 +38,7 @@ class CartPoleWalls(Task):
     The cart slides along an endless horizontal rail. Only the cart is
     actuated; the pole swings freely. Two soft, frictionless walls stand on
     either side of the upright pole. Only the pole's tip touches them, and
-    they push it back like springs. The pole starts upright and moving.
+    they push it back like padded springs. The pole starts upright and moving.
 
     Observations:
         - The cart position along the rail
