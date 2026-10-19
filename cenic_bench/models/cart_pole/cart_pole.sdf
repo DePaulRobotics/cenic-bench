@@ -120,11 +120,6 @@
         <drake:proximity_properties>
           <drake:rigid_hydroelastic/>
           <drake:mesh_resolution_hint>0.01</drake:mesh_resolution_hint>
-          <!-- Drake combines two point contact stiffnesses in series,
-               1/(1/k1 + 1/k2), so this stiff bob barely changes a softer
-               partner's stiffness. -->
-          <drake:point_contact_stiffness>1e5</drake:point_contact_stiffness>
-          <drake:hunt_crossley_dissipation>0</drake:hunt_crossley_dissipation>
         </drake:proximity_properties>
       </collision>
     </link>
