@@ -3,7 +3,9 @@
   A force-controlled cart sliding along the world x-axis, carrying an
   unactuated pole that swings about the world y-axis. The pole is a massless
   rod with a spherical bob. At theta = 0 the pole hangs straight down; at
-  theta = pi it is upright. The rail is visual only and has no ends.
+  theta = pi it is upright. The rail is visual only and has no ends. Only the
+  bob has collision geometry, a sphere matching its visual; the rod and cart
+  have none.
 -->
 <sdf version="1.9">
   <model name="cart_pole">
@@ -108,6 +110,18 @@
           <diffuse>0.1 0.4 0.8 1</diffuse>
         </material>
       </visual>
+      <collision name="bob">
+        <pose>0 0 -0.5 0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.05</radius>
+          </sphere>
+        </geometry>
+        <drake:proximity_properties>
+          <drake:rigid_hydroelastic/>
+          <drake:mesh_resolution_hint>0.01</drake:mesh_resolution_hint>
+        </drake:proximity_properties>
+      </collision>
     </link>
 
     <!-- A zero effort limit leaves the pole unactuated. -->
