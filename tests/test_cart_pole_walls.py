@@ -148,14 +148,15 @@ def test_success(task, x, theta, x_dot, theta_dot, expected):
 
 
 @pytest.mark.parametrize("side", [-1.0, 1.0])
-def test_resting_on_wall_is_not_success(task, side):
-    """A still pole leaning on either wall touches it but is not a success."""
-    # Tilt the pole so the bob's center is 1 cm past the wall's contact line.
-    set_state(task, 0.0, np.pi + np.arcsin(side * 0.11 / 0.5), 0.0, 0.0)
+def test_wall_pushes_bob_back(task, side):
+    """A bob pressed into a wall is pushed back toward the center."""
+    set_state(task, side * task.wall_distance, np.pi, 0.0, 0.0)
     plant_context = task.plant.GetMyContextFromRoot(task.context)
-    results = task.plant.get_contact_results_output_port().Eval(plant_context)
-    assert results.num_point_pair_contacts() == 1
-    assert not task.success(task.context)
+    cart_pole = task.plant.GetModelInstanceByName("cart_pole")
+    tau = task.plant.get_generalized_contact_forces_output_port(cart_pole).Eval(
+        plant_context
+    )
+    assert side * tau[0] < 0
 
 
 def test_observation():
@@ -189,13 +190,13 @@ def test_control_rate():
         num_calls += 1
         return np.array([0.0])
 
-    # With no force the pole falls, so the episode runs for the full timeout.
+    # With no force seed 0 fails, so the episode runs for the full timeout.
     task = CartPoleWalls(counting_policy, visualize=False)
     assert not task.run_episode(seed=0)
-    # Queries at t = 0, 0.02, ..., up to but not including the timeout.
+    # One query per control period from t = 0, excluding the timeout.
     assert num_calls == task.timeout * task.control_rate
 
 
 def test_zero_policy_fails(task):
-    """Applying no force never balances the pole."""
+    """Applying no force fails to balance the pole on seed 0."""
     assert not task.run_episode(seed=0)

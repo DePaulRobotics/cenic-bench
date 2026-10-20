@@ -20,7 +20,7 @@ def make_lqr_policy():
     equilibrium, ignoring the walls, and its force is clipped to the cart's
     force limit.
     """
-    # Estimated physical parameters
+    # Physical parameters from cart_pole.sdf
     cart_mass = 1.0
     pole_mass = 0.5
     length = 0.5

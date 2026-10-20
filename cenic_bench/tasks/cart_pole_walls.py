@@ -1,6 +1,13 @@
 import numpy as np
-from pydrake.geometry import StartMeshcat
-from pydrake.multibody.plant import AddMultibodyPlantSceneGraph, ContactModel
+from pydrake.geometry import (
+    AddCompliantHydroelasticProperties,
+    AddContactMaterial,
+    Box,
+    ProximityProperties,
+    StartMeshcat,
+)
+from pydrake.math import RigidTransform
+from pydrake.multibody.plant import AddMultibodyPlantSceneGraph, CoulombFriction
 from pydrake.systems.framework import Diagram, DiagramBuilder, LeafSystem
 from pydrake.visualization import AddDefaultVisualization
 
@@ -38,7 +45,7 @@ class CartPoleWalls(Task):
     The cart slides along an endless horizontal rail. Only the cart is
     actuated; the pole swings freely. Two soft, frictionless walls stand on
     either side of the upright pole. Only the pole's tip touches them, and
-    they push it back like padded springs. The pole starts upright and moving.
+    they push it back. The pole starts upright and moving.
 
     Observations:
         - The cart position along the rail
@@ -64,6 +71,10 @@ class CartPoleWalls(Task):
     cart_velocity_tolerance = 0.1  # m/s, max cart speed at upright
     cart_position_tolerance = 0.05  # m, max distance of cart from center
     control_rate = 50.0  # Hz, how often the policy is queried
+    wall_distance = 0.2  # m, from the center to each wall's face
+    wall_size = (0.2, 0.2, 1.3)  # m, each wall box's x, y, z size
+    wall_modulus = 1e5  # Pa, hydroelastic modulus of the walls
+    wall_dissipation = 5.0  # s/m, Hunt-Crossley dissipation of the walls
 
     def __init__(self, policy, visualize: bool = True):
         """Initialize the cart-pole with walls task.
@@ -86,10 +97,28 @@ class CartPoleWalls(Task):
         parser.AddModelsFromUrl(
             "package://cenic_bench/models/cart_pole/cart_pole.sdf"
         )
-        parser.AddModelsFromUrl(
-            "package://cenic_bench/models/cart_pole/soft_walls.sdf"
-        )
-        self.plant.set_contact_model(ContactModel.kPoint)
+        for name, side in [("left_wall", -1), ("right_wall", 1)]:
+            X_WB = RigidTransform(
+                [
+                    side * (self.wall_distance + self.wall_size[0] / 2),
+                    -0.12,
+                    1.1,
+                ]
+            )
+            box = Box(*self.wall_size)
+            props = ProximityProperties()
+            AddCompliantHydroelasticProperties(0.1, self.wall_modulus, props)
+            AddContactMaterial(
+                dissipation=self.wall_dissipation,
+                friction=CoulombFriction(0.0, 0.0),
+                properties=props,
+            )
+            self.plant.RegisterCollisionGeometry(
+                self.plant.world_body(), X_WB, box, name, props
+            )
+            self.plant.RegisterVisualGeometry(
+                self.plant.world_body(), X_WB, box, name, [0.6, 0.6, 0.6, 0.5]
+            )
         self.plant.Finalize()
 
         if self.meshcat is not None:
@@ -133,7 +162,7 @@ class CartPoleWalls(Task):
 
     @property
     def timeout(self):
-        return 14.0
+        return 10.0
 
     @property
     def task_description(self):
