@@ -20,10 +20,10 @@ def dummy_policy(obs):
 def make_energy_shaping_policy():
     """Build a policy that swings the acrobot up, then balances it.
 
-    Far from upright, apply the elbow torque that drives the total energy
-    toward that of the upright equilibrium while a PD term straightens the
-    elbow. Near upright, switch to an LQR controller designed on the model
-    linearized about the upright equilibrium.
+    Far from upright, use partial feedback linearization to drive the elbow
+    straight with a PD law, plus a torque that pumps energy toward that of the
+    upright equilibrium. Once x'Sx < threshold, switch to an LQR controller
+    designed on the model linearized about upright.
     """
     plant = MultibodyPlant(time_step=0.0)
     make_parser(plant).AddModelsFromUrl(
@@ -34,35 +34,20 @@ def make_energy_shaping_policy():
     actuation = plant.get_actuation_input_port()
     actuation.FixValue(context, [0.0])
     max_torque = plant.GetJointActuatorByName("elbow").effort_limit()
+    k_p, k_e, threshold = 10.0, 5.0, 100.0
+    k_d = 2 * np.sqrt(k_p)
 
-    plant.SetPositions(context, [0.0, 0.0])
-    down_energy = plant.CalcPotentialEnergy(context)
-    elbow_inertia = plant.CalcMassMatrix(context)[1, 1]
-    plant.SetPositions(context, [0.0, np.pi / 2])
-    max_gravity_torque = abs(plant.CalcGravityGeneralizedForces(context)[1])
     plant.SetPositions(context, [np.pi, 0.0])
     up_energy = plant.CalcPotentialEnergy(context)
-    energy_range = up_energy - down_energy
-
-    k_d = 2 * energy_range * elbow_inertia
-    k_p = 2 * energy_range * max_gravity_torque
-    k_v = 2 * np.sqrt(k_p * k_d)
-
     linear = Linearize(
         plant,
         context,
         input_port_index=actuation.get_index(),
         output_port_index=OutputPortSelection.kNoOutput,
     )
-    angle_tol = AcrobotSwingup.angle_tolerance
-    velocity_tol = AcrobotSwingup.velocity_tolerance
-    Q = np.diag(
-        [1 / angle_tol**2, 1 / angle_tol**2]
-        + [1 / velocity_tol**2, 1 / velocity_tol**2]
-    )
-    R = np.array([[1 / max_torque**2]])
+    Q = np.diag([10.0, 10.0, 1.0, 1.0])
+    R = np.array([[0.1]])
     K, S = LinearQuadraticRegulator(linear.A(), linear.B(), Q, R)
-    threshold = max_torque**2 / (K @ np.linalg.solve(S, K.T)).item()
 
     def policy(obs):
         cos_q1, sin_q1, cos_q2, sin_q2, q1_dot, q2_dot = obs
@@ -82,11 +67,13 @@ def make_energy_shaping_policy():
         energy = plant.CalcKineticEnergy(context) + plant.CalcPotentialEnergy(
             context
         )
-        det = np.linalg.det(M)
+        y = -k_p * q2 - k_d * q2_dot
         u = (
-            -(k_v * q2_dot + k_p * q2) * det
-            + k_d * (M[0, 0] * h[1] - M[1, 0] * h[0])
-        ) / ((energy - up_energy) * det + k_d * M[0, 0])
+            (M[1, 1] - M[1, 0] * M[0, 1] / M[0, 0]) * y
+            + h[1]
+            - M[1, 0] * h[0] / M[0, 0]
+            + k_e * (up_energy - energy) * q2_dot
+        )
         return np.clip(np.array([u]), -max_torque, max_torque)
 
     return policy
