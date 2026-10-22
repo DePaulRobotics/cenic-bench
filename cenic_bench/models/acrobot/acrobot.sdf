@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-  An acrobot: two identical uniform rods swinging about the world y-axis,
+  An acrobot: two uniform rods swinging about the world y-axis,
   with a passive shoulder and a torque-controlled elbow. At shoulder =
   elbow = 0 it hangs straight down; at shoulder = pi, elbow = 0 it points
   straight up.
