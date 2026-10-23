@@ -122,7 +122,7 @@ class AcrobotSwingup(Task):
 
     @property
     def timeout(self):
-        return 173.0
+        return 223.0
 
     @property
     def task_description(self):

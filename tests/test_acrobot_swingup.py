@@ -74,6 +74,7 @@ def test_reset(task):
     [
         (np.pi, 0.0, 0.0, 0.0, True),  # upright at rest
         (-np.pi, 0.0, 0.0, 0.0, True),  # upright, wrapped shoulder
+        # near upright, wrapped
         (3 * np.pi + 0.5 * A, 2 * np.pi - 0.5 * A, 0.5 * V, -0.5 * V, True),
         (np.pi + 2 * A, 0.0, 0.0, 0.0, False),  # shoulder too far
         (np.pi, 2 * A, 0.0, 0.0, False),  # elbow too bent

@@ -54,6 +54,7 @@ def make_energy_shaping_policy():
         q1 = np.arctan2(sin_q1, cos_q1)
         q2 = np.arctan2(sin_q2, cos_q2)
 
+        # State relative to upright, shoulder angle wrapped to [-pi, pi].
         x = np.array([np.arctan2(-sin_q1, -cos_q1), q2, q1_dot, q2_dot])
         if x @ S @ x < threshold:
             return np.clip(-K @ x, -max_torque, max_torque)
