@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-  An acrobot: two identical uniform rods swinging about the world y-axis,
+  An acrobot: two uniform rods swinging about the world y-axis,
   with a passive shoulder and a torque-controlled elbow. At shoulder =
   elbow = 0 it hangs straight down; at shoulder = pi, elbow = 0 it points
   straight up.
@@ -9,7 +9,7 @@
   <model name="acrobot">
 
     <link name="base">
-      <pose>0 0 1.2 0 0 0</pose>
+      <pose>0 0 1.7 0 0 0</pose>
       <visual name="shoulder">
         <pose>0 0 0 1.57079633 0 0</pose>
         <geometry>
@@ -87,13 +87,13 @@
     <link name="lower_link">
       <pose relative_to="upper_link">0 0 -0.5 0 0 0</pose>
       <inertial>
-        <pose>0 0 -0.25 0 0 0</pose>
+        <pose>0 0 -0.5 0 0 0</pose>
         <mass>0.5</mass>
-        <!-- Solid cylinder r = 0.02 m, L = 0.5 m: m (3 r^2 + L^2) / 12
+        <!-- Solid cylinder r = 0.02 m, L = 1 m: m (3 r^2 + L^2) / 12
              across, m r^2 / 2 along -->
         <inertia>
-          <ixx>0.010467</ixx>
-          <iyy>0.010467</iyy>
+          <ixx>0.041717</ixx>
+          <iyy>0.041717</iyy>
           <izz>0.0001</izz>
           <ixy>0</ixy>
           <ixz>0</ixz>
@@ -101,11 +101,11 @@
         </inertia>
       </inertial>
       <visual name="rod">
-        <pose>0 0 -0.25 0 0 0</pose>
+        <pose>0 0 -0.5 0 0 0</pose>
         <geometry>
           <cylinder>
             <radius>0.02</radius>
-            <length>0.5</length>
+            <length>1</length>
           </cylinder>
         </geometry>
         <material>
