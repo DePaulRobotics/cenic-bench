@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from pydrake.math import RigidTransform, RollPitchYaw, RotationMatrix
+from pydrake.math import RigidTransform, RotationMatrix
 from pydrake.multibody.math import SpatialVelocity
 
 from cenic_bench.tasks import DiffDriveParking
@@ -54,10 +54,8 @@ def test_reset(task):
         task.reset(task.context, seed=seed)
         X_WC = task.plant.GetFreeBodyPose(plant_context, chassis)
         x, y, z = X_WC.translation()
-        heading = RollPitchYaw(X_WC.rotation()).yaw_angle()
         assert abs(x) <= 1.0
         assert abs(y) <= 1.0
-        assert abs(heading) <= np.pi
         assert z == default_z
         # Wheel angles are the last two positions.
         np.testing.assert_array_equal(

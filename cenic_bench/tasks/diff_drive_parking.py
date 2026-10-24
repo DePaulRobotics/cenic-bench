@@ -49,8 +49,8 @@ class DiffDriveParking(Task):
     """Drive a differential drive robot to the center of the floor and park.
 
     The robot rolls on a flat floor on two torque-controlled wheels and a
-    frictionless caster. It starts at rest somewhere on the floor, facing a
-    random direction. It must reach the center, face +x, and stop there.
+    frictionless caster. It starts at rest near the center of the floor, facing
+    a random direction. It must reach the center, face +x, and stop there.
 
     Observations:
         - The chassis position along x
@@ -102,7 +102,7 @@ class DiffDriveParking(Task):
             "package://cenic_bench/models/diff_drive/diff_drive.sdf"
         )
         X_WF = RigidTransform([0, 0, -0.05])
-        floor = Box(4, 4, 0.1)
+        floor = Box(30, 30, 0.1)
         props = ProximityProperties()
         AddRigidHydroelasticProperties(props)
         self.plant.RegisterCollisionGeometry(
