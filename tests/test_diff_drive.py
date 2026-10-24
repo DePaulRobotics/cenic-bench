@@ -15,8 +15,6 @@ from pydrake.systems.framework import DiagramBuilder
 
 from cenic_bench.parsing import make_parser
 
-MODEL_URL = "package://cenic_bench/models/diff_drive/diff_drive.sdf"
-
 
 def _drive(left_torque, right_torque):
     """Apply constant wheel torques on flat ground for 0.5 s with CENIC.
@@ -25,7 +23,9 @@ def _drive(left_torque, right_torque):
     """
     builder = DiagramBuilder()
     plant, _ = AddMultibodyPlantSceneGraph(builder, time_step=0.0)
-    make_parser(plant).AddModelsFromUrl(MODEL_URL)
+    make_parser(plant).AddModelsFromUrl(
+        "package://cenic_bench/models/diff_drive/diff_drive.sdf"
+    )
     props = ProximityProperties()
     AddRigidHydroelasticProperties(props)
     plant.RegisterCollisionGeometry(
@@ -59,7 +59,9 @@ def _drive(left_torque, right_torque):
 def test_only_wheels_are_actuated():
     """The model has exactly two actuators, one per wheel joint."""
     plant = MultibodyPlant(time_step=0.0)
-    make_parser(plant).AddModelsFromUrl(MODEL_URL)
+    make_parser(plant).AddModelsFromUrl(
+        "package://cenic_bench/models/diff_drive/diff_drive.sdf"
+    )
     plant.Finalize()
     actuators = [
         plant.get_joint_actuator(i) for i in plant.GetJointActuatorIndices()

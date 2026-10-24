@@ -11,7 +11,8 @@
       <pose>0 0 0.08 0 0 0</pose>
       <inertial>
         <mass>2.0</mass>
-        <!-- Solid box 0.3 x 0.2 x 0.08 m: m (b^2 + c^2) / 12 about each axis -->
+        <!-- Solid box 0.3 x 0.2 x 0.08 m: m (b^2 + c^2) / 12 about each
+             axis -->
         <inertia>
           <ixx>0.007733</ixx>
           <iyy>0.016067</iyy>
