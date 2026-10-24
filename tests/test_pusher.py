@@ -63,5 +63,5 @@ def test_pushing_the_stem_moves_the_t_forward():
     ApplySimulatorConfig(config, simulator)
     simulator.AdvanceTo(1.0)
 
-    t = plant.GetBodyByName("t")
-    assert plant.EvalBodyPoseInWorld(context, t).translation()[1] > 0
+    t_block = plant.GetBodyByName("t")
+    assert plant.EvalBodyPoseInWorld(context, t_block).translation()[1] > 0

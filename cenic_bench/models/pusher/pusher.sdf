@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <!--
   A spherical pusher driven in the world x and y directions by two
-  force-controlled prismatic joints. At x = y = 0 the ball sits at the
-  origin, 0.025 m above the floor.
+  force-controlled prismatic joints. At x = y = 0 the ball's center is
+  0.025 m above the world origin.
 -->
 <sdf version="1.9">
   <model name="pusher">
