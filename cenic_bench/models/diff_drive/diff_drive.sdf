@@ -120,6 +120,9 @@
         <limit>
           <effort>0.1</effort>
         </limit>
+        <dynamics>
+          <damping>0.005</damping>
+        </dynamics>
       </axis>
     </joint>
 
@@ -172,6 +175,9 @@
         <limit>
           <effort>0.1</effort>
         </limit>
+        <dynamics>
+          <damping>0.005</damping>
+        </dynamics>
       </axis>
     </joint>
 
