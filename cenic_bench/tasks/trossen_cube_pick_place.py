@@ -185,11 +185,12 @@ class TrossenCubePickPlace(Task):
         if self.meshcat is not None:
             AddDefaultVisualization(builder, self.meshcat)
 
-        controller = builder.AddSystem(
+        self.controller = builder.AddSystem(
             TrossenLeftArmPolicy(
                 self.plant, self.model, policy, self.control_rate
             )
         )
+        controller = self.controller
         builder.Connect(
             self.plant.get_state_output_port(), controller.state_port
         )
@@ -275,11 +276,23 @@ class TrossenCubePickPlace(Task):
 
     @property
     def task_description(self):
-        return "Not yet implemented."
+        return (
+            "Pick up a cube from a random reachable position on the table "
+            "using the left arm, and place it at a fixed drop zone. The "
+            "right arm is not controlled and stays parked. Success is the "
+            f"cube settling within {self.position_tolerance} m (xy) and "
+            f"{self.height_tolerance} m (height) of the drop zone, moving "
+            f"slower than {self.velocity_tolerance} m/s."
+        )
 
     @property
     def action_description(self):
-        return "Not yet implemented."
+        return (
+            "Desired positions for the left arm's 6 joints (rad) followed "
+            "by a single gripper position (m, 0=closed to 0.044=open, "
+            "applied to both fingers), held constant between policy "
+            f"queries at {self.control_rate} Hz."
+        )
 
     @property
     def action_example(self):
@@ -287,7 +300,11 @@ class TrossenCubePickPlace(Task):
 
     @property
     def observation_description(self):
-        return "Not yet implemented."
+        return (
+            "The left arm's 6 joint positions (rad) and 6 joint velocities "
+            "(rad/s), followed by the gripper's position (m) and velocity "
+            "(m/s), followed by the cube's position (x, y, z in m)."
+        )
 
     @property
     def observation_example(self):
