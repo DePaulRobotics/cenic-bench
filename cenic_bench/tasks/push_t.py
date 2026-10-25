@@ -54,7 +54,7 @@ class PushT(Task):
     A ball pusher moves in the horizontal plane, driven by forces along the
     world x and y axes. The T block slides freely on the floor and only moves
     when the pusher touches it. The T starts at rest near the origin with a
-    random heading, and the pusher starts at rest behind it.
+    random heading, and the pusher starts at rest at a fixed point.
 
     Observations:
         - The pusher position in x and y
@@ -141,7 +141,7 @@ class PushT(Task):
         return builder.Build()
 
     def reset(self, context, seed: int = 0):
-        """Place the T at rest near the origin, the pusher at rest behind."""
+        """Place the T at rest near the origin and the pusher at its start."""
         rng = np.random.default_rng(seed)
         self.diagram.SetDefaultContext(context)
         plant_context = self.plant.GetMyMutableContextFromRoot(context)
@@ -222,8 +222,8 @@ class PushT(Task):
         """The 11-number observation layout."""
         return (
             "In the world frame: pusher x, y, x velocity, y velocity; T x, "
-            "y (zero at the target), cosine and sine of the T's yaw (zero at "
-            "the target), T x velocity, y velocity, and yaw rate."
+            "y (zero at the target), cosine and sine of the T's yaw (yaw is "
+            "zero at the target), T x velocity, y velocity, and yaw rate."
         )
 
     @property

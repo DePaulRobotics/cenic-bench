@@ -93,7 +93,7 @@ def test_no_seed_starts_at_success(task):
     "t, pusher_velocity, expected",
     [
         ([0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0], True),  # at goal, at rest
-        (  # every quantity just within its tolerance
+        (  # every quantity within its tolerance
             [
                 0.5 * PushT.position_tolerance,
                 0.0,
