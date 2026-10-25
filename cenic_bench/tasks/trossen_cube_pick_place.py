@@ -13,16 +13,14 @@ from pydrake.visualization import AddDefaultVisualization
 
 from cenic_bench.parsing import make_parser
 from cenic_bench.tasks.base import Task
-
-NUM_ARM_JOINTS = 6
-NUM_ARM_ACTUATORS = (
-    NUM_ARM_JOINTS + 2
-)  # 6 joints + 2 independent gripper fingers
-# All-zero joint angles put the gripper clear of the table and frame,
-# so it is used as both the home pose for the controlled arm (left)
-# and the fixed pose for the parked one (right).
-HOME_ARM_POSITION = np.zeros(NUM_ARM_JOINTS)
-HOME_GRIPPER_POSITION = 0  # close
+from cenic_bench.tasks.trossen_arm_utils import (
+    HOME_ARM_POSITION,
+    HOME_GRIPPER_POSITION,
+    NUM_ARM_ACTUATORS,
+    NUM_ARM_JOINTS,
+    desired_positions,
+    set_arm_configuration,
+)
 
 # Table surface (z=0.02) plus the cube's half-height; verified by dropping
 # the cube onto the table and checking where it settles.
@@ -32,50 +30,6 @@ CUBE_REST_HEIGHT = 0.03
 CUBE_SPAWN_X_RANGE = (-0.15, 0.15)
 CUBE_SPAWN_Y_RANGE = (0.0, 0.3)
 DROP_ZONE_XY = np.array([0.0, -0.10])
-
-
-def _desired_positions(
-    plant, model_instance, prefix, arm_position, gripper_position
-):
-    """Build the 8-actuator desired-position vector for one arm.
-
-    `gripper_position` is sent to both carriage joints, replacing the URDF's
-    mimic constraint (removed because CENIC's continuous-time plants don't
-    support constraints). Indexed by JointActuator.input_start(), which is
-    NOT the same ordering as the plant's positions.
-    """
-    u = np.zeros(plant.num_actuators(model_instance))
-    for i, q in enumerate(arm_position):
-        actuator = plant.GetJointActuatorByName(f"{prefix}_motor_{i}")
-        u[actuator.input_start()] = q
-    for name in (
-        f"{prefix}_left_carriage_motor",
-        f"{prefix}_right_carriage_motor",
-    ):
-        actuator = plant.GetJointActuatorByName(name)
-        u[actuator.input_start()] = gripper_position
-    return u
-
-
-def _set_arm_configuration(
-    plant, plant_context, prefix, arm_position, gripper_position
-):
-    """Set one arm's joints directly on a context, at rest.
-
-    Operates per-joint via Joint.set_angle()/set_translation(), which sidesteps
-    any question of position-vector ordering entirely.
-    """
-    for i, q in enumerate(arm_position):
-        joint = plant.GetJointByName(f"{prefix}_joint_{i}")
-        joint.set_angle(plant_context, q)
-        joint.set_angular_rate(plant_context, 0.0)
-    for name in (
-        f"{prefix}_left_carriage_joint",
-        f"{prefix}_right_carriage_joint",
-    ):
-        joint = plant.GetJointByName(name)
-        joint.set_translation(plant_context, gripper_position)
-        joint.set_translation_rate(plant_context, 0.0)
 
 
 class TrossenLeftArmPolicy(LeafSystem):
@@ -129,7 +83,7 @@ class TrossenLeftArmPolicy(LeafSystem):
         state = self.state_port.Eval(context)
         obs = self._observation(state)
         action = np.asarray(self._policy(obs))
-        u_full = _desired_positions(
+        u_full = desired_positions(
             self._plant,
             self._model,
             "follower_left",
@@ -199,7 +153,7 @@ class TrossenCubePickPlace(Task):
         # pose reset() gives it, so it never moves. Sliced the same way as
         # the left arm above: follower_right's actuators are indices
         # NUM_ARM_ACTUATORS:2*NUM_ARM_ACTUATORS.
-        right_arm_u = _desired_positions(
+        right_arm_u = desired_positions(
             self.plant,
             self.model,
             "follower_right",
@@ -233,7 +187,7 @@ class TrossenCubePickPlace(Task):
         self.diagram.SetDefaultContext(context)
         plant_context = self.plant.GetMyMutableContextFromRoot(context)
         for prefix in ("follower_left", "follower_right"):
-            _set_arm_configuration(
+            set_arm_configuration(
                 self.plant,
                 plant_context,
                 prefix,
