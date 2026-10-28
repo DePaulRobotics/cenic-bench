@@ -14,6 +14,12 @@ Distributed under the MIT license; see [LICENSE.md](LICENSE.md).
 Every collision geometry is compliant hydroelastic. The fingertip collision
 meshes are treated as their convex hulls.
 
+The fingertip collision meshes are 512-face convex hulls coarsened from the
+dex-urdf meshes by greedy hull refinement: starting from the six axis-extreme
+vertices of the original hull, repeatedly add the original hull vertex
+farthest outside the current hull until it has 512 faces. They use only
+original vertices, so they never extend outside the original surface.
+
 ## Actuation
 
 Each of the 16 revolute joints has an effort-limited (0.95 N·m) actuator.
