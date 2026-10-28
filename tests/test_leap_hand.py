@@ -1,6 +1,8 @@
+from itertools import product
+
 import numpy as np
 import pytest
-from pydrake.geometry import Convex, Mesh, Role
+from pydrake.geometry import Box, Convex, Mesh, Role
 from pydrake.multibody.plant import AddMultibodyPlantSceneGraph
 from pydrake.systems.framework import DiagramBuilder
 
@@ -57,15 +59,48 @@ def test_leap_hand_collisions_are_compliant_hydroelastic(side):
         )
 
 
+def geometry_vertices(inspector, geometry_id):
+    """Return a box's corners or a mesh's convex hull vertices, expressed in
+    the geometry's parent frame."""
+    shape = inspector.GetShape(geometry_id)
+    if isinstance(shape, Box):
+        points = np.array(list(product([-0.5, 0.5], repeat=3))) * shape.size()
+    else:
+        hull = shape.GetConvexHull()
+        points = [hull.vertex(i) for i in range(hull.num_vertices())]
+    X = inspector.GetPoseInFrame(geometry_id)
+    return np.array([X @ p for p in points])
+
+
 def mesh_bounds(inspector, geometry_id):
     """Return the axis-aligned (min, max) corners of a geometry's convex
     hull, expressed in its parent frame."""
-    hull = inspector.GetShape(geometry_id).GetConvexHull()
-    X = inspector.GetPoseInFrame(geometry_id)
-    vertices = np.array(
-        [X @ hull.vertex(i) for i in range(hull.num_vertices())]
-    )
+    vertices = geometry_vertices(inspector, geometry_id)
     return vertices.min(axis=0), vertices.max(axis=0)
+
+
+@pytest.mark.parametrize("side", ["left", "right"])
+def test_leap_hand_visual_and_collision_centers_agree(side):
+    """Each link's visual and collision geometry have bounding box centers
+    within 3 mm of each other."""
+    plant, scene_graph, model = make_leap_hand(side)
+    inspector = scene_graph.model_inspector()
+    for i in plant.GetBodyIndices(model):
+        frame_id = plant.GetBodyFrameIdIfExists(i)
+        if frame_id is None:
+            continue
+        centers = []
+        for role in [Role.kIllustration, Role.kProximity]:
+            geometry_ids = inspector.GetGeometries(frame_id, role)
+            if not geometry_ids:
+                break
+            vertices = np.vstack(
+                [geometry_vertices(inspector, g) for g in geometry_ids]
+            )
+            centers.append((vertices.min(axis=0) + vertices.max(axis=0)) / 2)
+        if len(centers) == 2:
+            distance = np.linalg.norm(centers[0] - centers[1])
+            assert distance < 3e-3, plant.get_body(i).name()
 
 
 @pytest.mark.parametrize("side", ["left", "right"])

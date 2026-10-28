@@ -247,7 +247,7 @@
     <inertial>
       <origin xyz="0.00750 -0.00020 -0.01100" rpy="0 0 0"/>
       <mass value="0.032"/>
-      <inertia ixx="0.000003093" ixy="-0.000000000" ixz="0.000000000" iyy="0.000004373" iyz="0.000000000" izz="0.000004885"/>
+      <inertia ixx="0.000003093" ixy="0.000000000" ixz="0.000000000" iyy="0.000004373" iyz="0.000000000" izz="0.000004885"/>
     </inertial>
   </link>
   <link name="dip">
@@ -320,7 +320,7 @@
     <inertial>
       <origin xyz="0.00552 -0.02936 0.01500" rpy="0 0 0"/>
       <mass value="0.037"/>
-      <inertia ixx="0.000007664" ixy="0.000001151" ixz="-0.000000000" iyy="0.000006022" iyz="-0.000000000" izz="0.000008174"/>
+      <inertia ixx="0.000007664" ixy="0.000001151" ixz="0.000000000" iyy="0.000006022" iyz="0.000000000" izz="0.000008174"/>
     </inertial>
   </link>
   <link name="fingertip">
@@ -526,7 +526,7 @@
     <inertial>
       <origin xyz="0.00750 -0.00020 -0.01100" rpy="0 0 0"/>
       <mass value="0.032"/>
-      <inertia ixx="0.000003093" ixy="-0.000000000" ixz="0.000000000" iyy="0.000004373" iyz="0.000000000" izz="0.000004885"/>
+      <inertia ixx="0.000003093" ixy="0.000000000" ixz="0.000000000" iyy="0.000004373" iyz="0.000000000" izz="0.000004885"/>
     </inertial>
   </link>
   <link name="dip_2">
@@ -599,7 +599,7 @@
     <inertial>
       <origin xyz="0.00552 -0.02936 0.01500" rpy="0 0 0"/>
       <mass value="0.037"/>
-      <inertia ixx="0.000007664" ixy="0.000001151" ixz="-0.000000000" iyy="0.000006022" iyz="-0.000000000" izz="0.000008174"/>
+      <inertia ixx="0.000007664" ixy="0.000001151" ixz="0.000000000" iyy="0.000006022" iyz="0.000000000" izz="0.000008174"/>
     </inertial>
   </link>
   <link name="fingertip_2">
@@ -804,7 +804,7 @@
     <inertial>
       <origin xyz="0.00750 -0.00020 -0.01100" rpy="0 0 0"/>
       <mass value="0.032"/>
-      <inertia ixx="0.000003093" ixy="-0.000000000" ixz="0.000000000" iyy="0.000004373" iyz="0.000000000" izz="0.000004885"/>
+      <inertia ixx="0.000003093" ixy="0.000000000" ixz="0.000000000" iyy="0.000004373" iyz="0.000000000" izz="0.000004885"/>
     </inertial>
   </link>
   <link name="dip_3">
@@ -877,7 +877,7 @@
     <inertial>
       <origin xyz="0.00552 -0.02936 0.01500" rpy="0 0 0"/>
       <mass value="0.037"/>
-      <inertia ixx="0.000007664" ixy="0.000001151" ixz="-0.000000000" iyy="0.000006022" iyz="-0.000000000" izz="0.000008174"/>
+      <inertia ixx="0.000007664" ixy="0.000001151" ixz="0.000000000" iyy="0.000006022" iyz="0.000000000" izz="0.000008174"/>
     </inertial>
   </link>
   <link name="fingertip_3">
@@ -983,7 +983,7 @@
       </geometry>
     </visual>
     <collision>     <!-- pip -->
-      <origin xyz="0.0075 -0.0002 -0.011" rpy="0 0 0"/>
+      <origin xyz="-0.0074 -0.0001 -0.0109" rpy="0 0 0"/>
       <geometry>
         <box size="0.034 0.026 0.022"/>
       </geometry>
@@ -995,9 +995,9 @@
       </drake:proximity_properties>
     </collision>
     <inertial>
-      <origin xyz="-0.00740 -0.00010 -0.01092" rpy="0 0 0"/>
+      <origin xyz="-0.00740 -0.00010 -0.01090" rpy="0 0 0"/>
       <mass value="0.032"/>
-      <inertia ixx="0.000003093" ixy="-0.000000000" ixz="0.000000000" iyy="0.000004373" iyz="0.000000000" izz="0.000004885"/>
+      <inertia ixx="0.000003093" ixy="0.000000000" ixz="0.000000000" iyy="0.000004373" iyz="0.000000000" izz="0.000004885"/>
     </inertial>
   </link>
   <link name="thumb_pip">
@@ -1046,7 +1046,7 @@
     <inertial>
       <origin xyz="0.00000 0.00000 -0.00712" rpy="0 0 0"/>
       <mass value="0.003"/>
-      <inertia ixx="0.000000618" ixy="-0.000000000" ixz="0.000000000" iyy="0.000000216" iyz="0.000000000" izz="0.000000533"/>
+      <inertia ixx="0.000000618" ixy="0.000000000" ixz="0.000000000" iyy="0.000000216" iyz="0.000000000" izz="0.000000533"/>
     </inertial>
   </link>
   <link name="thumb_dip">
