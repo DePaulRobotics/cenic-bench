@@ -135,9 +135,9 @@
       </drake:proximity_properties>
     </collision>
     <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="-0.04818 -0.03974 -0.01022" rpy="0 0 0"/>
       <mass value="0.237"/>
-      <inertia ixx="0.000354094" ixy="-0.000001193" ixz="-0.000002445" iyy="0.000260915" iyz="-0.000002905" izz="0.000529257"/>
+      <inertia ixx="0.000290562" ixy="-0.000028404" ixz="-0.000000649" iyy="0.000203283" iyz="-0.000005586" izz="0.000416455"/>
     </inertial>
   </link>
   <link name="mcp_joint">
@@ -220,9 +220,9 @@
       </drake:proximity_properties>
     </collision>
     <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="-0.02242 0.03408 0.01638" rpy="0 0 0"/>
       <mass value="0.044"/>
-      <inertia ixx="0.000011499" ixy="0.000003049" ixz="0.000000121" iyy="0.000007796" iyz="0.000000112" izz="0.000014759"/>
+      <inertia ixx="0.000013252" ixy="0.000004355" ixz="0.000000511" iyy="0.000010382" iyz="-0.000000153" izz="0.000017520"/>
     </inertial>
   </link>
   <link name="pip">
@@ -245,9 +245,9 @@
       </drake:proximity_properties>
     </collision>
     <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0.00750 -0.00020 -0.01100" rpy="0 0 0"/>
       <mass value="0.032"/>
-      <inertia ixx="0.000004798" ixy="0.000000012" ixz="0.000000004" iyy="0.000002862" iyz="0.000000011" izz="0.000004234"/>
+      <inertia ixx="0.000003093" ixy="-0.000000000" ixz="0.000000000" iyy="0.000004373" iyz="0.000000000" izz="0.000004885"/>
     </inertial>
   </link>
   <link name="dip">
@@ -318,9 +318,9 @@
       </drake:proximity_properties>
     </collision>
     <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0.00552 -0.02936 0.01500" rpy="0 0 0"/>
       <mass value="0.037"/>
-      <inertia ixx="0.000005542" ixy="-0.000000607" ixz="-0.000000017" iyy="0.000005727" iyz="-0.000000023" izz="0.000006682"/>
+      <inertia ixx="0.000007664" ixy="0.000001151" ixz="-0.000000000" iyy="0.000006022" iyz="-0.000000000" izz="0.000008174"/>
     </inertial>
   </link>
   <link name="fingertip">
@@ -381,9 +381,9 @@
       </drake:proximity_properties>
     </collision>
     <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="-0.00090 -0.02721 0.01457" rpy="0 0 0"/>
       <mass value="0.016"/>
-      <inertia ixx="0.000003368" ixy="0.000000115" ixz="0" iyy="0.000001556" iyz="0" izz="0.000002863"/>
+      <inertia ixx="0.000003715" ixy="-0.000000125" ixz="-0.000000001" iyy="0.000001653" iyz="-0.000000008" izz="0.000003034"/>
     </inertial>
   </link>
 
@@ -499,9 +499,9 @@
       </drake:proximity_properties>
     </collision>
     <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="-0.02242 0.03408 0.01638" rpy="0 0 0"/>
       <mass value="0.044"/>
-      <inertia ixx="0.000011499" ixy="0.000003049" ixz="0.000000121" iyy="0.000007796" iyz="0.000000112" izz="0.000014759"/>
+      <inertia ixx="0.000013252" ixy="0.000004355" ixz="0.000000511" iyy="0.000010382" iyz="-0.000000153" izz="0.000017520"/>
     </inertial>
   </link>
   <link name="pip_2">
@@ -524,9 +524,9 @@
       </drake:proximity_properties>
     </collision>
     <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0.00750 -0.00020 -0.01100" rpy="0 0 0"/>
       <mass value="0.032"/>
-      <inertia ixx="0.000004798" ixy="0.000000012" ixz="0.000000004" iyy="0.000002862" iyz="0.000000011" izz="0.000004234"/>
+      <inertia ixx="0.000003093" ixy="-0.000000000" ixz="0.000000000" iyy="0.000004373" iyz="0.000000000" izz="0.000004885"/>
     </inertial>
   </link>
   <link name="dip_2">
@@ -597,9 +597,9 @@
       </drake:proximity_properties>
     </collision>
     <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0.00552 -0.02936 0.01500" rpy="0 0 0"/>
       <mass value="0.037"/>
-      <inertia ixx="0.000005542" ixy="-0.000000607" ixz="-0.000000017" iyy="0.000005727" iyz="-0.000000023" izz="0.000006682"/>
+      <inertia ixx="0.000007664" ixy="0.000001151" ixz="-0.000000000" iyy="0.000006022" iyz="-0.000000000" izz="0.000008174"/>
     </inertial>
   </link>
   <link name="fingertip_2">
@@ -660,9 +660,9 @@
       </drake:proximity_properties>
     </collision>
     <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="-0.00090 -0.02721 0.01457" rpy="0 0 0"/>
       <mass value="0.016"/>
-      <inertia ixx="0.000003368" ixy="0.000000115" ixz="0" iyy="0.000001556" iyz="0" izz="0.000002863"/>
+      <inertia ixx="0.000003715" ixy="-0.000000125" ixz="-0.000000001" iyy="0.000001653" iyz="-0.000000008" izz="0.000003034"/>
     </inertial>
   </link>
   <joint name="4" type="revolute">
@@ -777,9 +777,9 @@
       </drake:proximity_properties>
     </collision>
     <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="-0.02242 0.03408 0.01638" rpy="0 0 0"/>
       <mass value="0.044"/>
-      <inertia ixx="0.000011499" ixy="0.000003049" ixz="0.000000121" iyy="0.000007796" iyz="0.000000112" izz="0.000014759"/>
+      <inertia ixx="0.000013252" ixy="0.000004355" ixz="0.000000511" iyy="0.000010382" iyz="-0.000000153" izz="0.000017520"/>
     </inertial>
   </link>
   <link name="pip_3">
@@ -802,9 +802,9 @@
       </drake:proximity_properties>
     </collision>
     <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0.00750 -0.00020 -0.01100" rpy="0 0 0"/>
       <mass value="0.032"/>
-      <inertia ixx="0.000004798" ixy="0.000000012" ixz="0.000000004" iyy="0.000002862" iyz="0.000000011" izz="0.000004234"/>
+      <inertia ixx="0.000003093" ixy="-0.000000000" ixz="0.000000000" iyy="0.000004373" iyz="0.000000000" izz="0.000004885"/>
     </inertial>
   </link>
   <link name="dip_3">
@@ -875,9 +875,9 @@
       </drake:proximity_properties>
     </collision>
     <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0.00552 -0.02936 0.01500" rpy="0 0 0"/>
       <mass value="0.037"/>
-      <inertia ixx="0.000005542" ixy="-0.000000607" ixz="-0.000000017" iyy="0.000005727" iyz="-0.000000023" izz="0.000006682"/>
+      <inertia ixx="0.000007664" ixy="0.000001151" ixz="-0.000000000" iyy="0.000006022" iyz="-0.000000000" izz="0.000008174"/>
     </inertial>
   </link>
   <link name="fingertip_3">
@@ -938,9 +938,9 @@
       </drake:proximity_properties>
     </collision>
     <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="-0.00090 -0.02721 0.01457" rpy="0 0 0"/>
       <mass value="0.016"/>
-      <inertia ixx="0.000003368" ixy="0.000000115" ixz="0" iyy="0.000001556" iyz="0" izz="0.000002863"/>
+      <inertia ixx="0.000003715" ixy="-0.000000125" ixz="-0.000000001" iyy="0.000001653" iyz="-0.000000008" izz="0.000003034"/>
     </inertial>
   </link>
   <joint name="8" type="revolute">
@@ -995,9 +995,9 @@
       </drake:proximity_properties>
     </collision>
     <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="-0.00740 -0.00010 -0.01092" rpy="0 0 0"/>
       <mass value="0.032"/>
-      <inertia ixx="0.000004798" ixy="0.000000012" ixz="0.000000004" iyy="0.000002862" iyz="0.000000011" izz="0.000004234"/>
+      <inertia ixx="0.000003093" ixy="-0.000000000" ixz="0.000000000" iyy="0.000004373" iyz="0.000000000" izz="0.000004885"/>
     </inertial>
   </link>
   <link name="thumb_pip">
@@ -1044,9 +1044,9 @@
       </drake:proximity_properties>
     </collision>
     <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0.00000 0.00000 -0.00712" rpy="0 0 0"/>
       <mass value="0.003"/>
-      <inertia ixx="0.000000593" ixy="0" ixz="0" iyy="0.000000549" iyz="0" izz="0.000000224"/>
+      <inertia ixx="0.000000618" ixy="-0.000000000" ixz="0.000000000" iyy="0.000000216" iyz="0.000000000" izz="0.000000533"/>
     </inertial>
   </link>
   <link name="thumb_dip">
@@ -1117,9 +1117,9 @@
       </drake:proximity_properties>
     </collision>
     <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="-0.00195 0.01545 -0.01377" rpy="0 0 0"/>
       <mass value="0.038"/>
-      <inertia ixx="0.000008474" ixy="0.000000241" ixz="0.000000026" iyy="0.000003841" iyz="0.000000025" izz="0.000007679"/>
+      <inertia ixx="0.000009956" ixy="0.000000152" ixz="0.000000150" iyy="0.000004406" iyz="0.000000022" izz="0.000009516"/>
     </inertial>
   </link>
   <link name="thumb_fingertip">
@@ -1180,9 +1180,9 @@
       </drake:proximity_properties>
     </collision>
     <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0.00095 -0.02424 -0.01442" rpy="0 0 0"/>
       <mass value="0.049"/>
-      <inertia ixx="0.000020372" ixy="-0.000000489" ixz="-0.00000003" iyy="0.000004336" iyz="-0.000000097" izz="0.000019845"/>
+      <inertia ixx="0.000020364" ixy="-0.000001001" ixz="-0.000000206" iyy="0.000004773" iyz="0.000000102" izz="0.000020595"/>
     </inertial>
   </link>
   <joint name="12" type="revolute">

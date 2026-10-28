@@ -91,3 +91,26 @@ def test_leap_hand_fingertip_visual_contains_collision(side, link):
     collision_min, collision_max = mesh_bounds(inspector, collision)
     assert np.all(collision_min >= visual_min - 1e-3)
     assert np.all(collision_max <= visual_max + 1e-3)
+
+
+@pytest.mark.parametrize("side", ["left", "right"])
+def test_leap_hand_com_inside_visual(side):
+    """Each link's center of mass lies within the bounding box of its visual
+    meshes."""
+    plant, scene_graph, model = make_leap_hand(side)
+    inspector = scene_graph.model_inspector()
+    for i in plant.GetBodyIndices(model):
+        frame_id = plant.GetBodyFrameIdIfExists(i)
+        if frame_id is None:
+            continue
+        bounds = [
+            mesh_bounds(inspector, g)
+            for g in inspector.GetGeometries(frame_id, Role.kIllustration)
+        ]
+        if not bounds:
+            continue
+        visual_min = np.min([lo for lo, _ in bounds], axis=0)
+        visual_max = np.max([hi for _, hi in bounds], axis=0)
+        com = plant.get_body(i).default_com()
+        name = plant.get_body(i).name()
+        assert np.all((visual_min <= com) & (com <= visual_max)), name
