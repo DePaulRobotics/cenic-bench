@@ -8,6 +8,10 @@ from cenic_bench.parsing import make_parser
 
 
 def make_leap_hand(side):
+    """Load the `side` Leap Hand into a finalized continuous-time plant.
+
+    Returns the plant, its scene graph, and the hand's model instance.
+    """
     builder = DiagramBuilder()
     plant, scene_graph = AddMultibodyPlantSceneGraph(builder, time_step=0.0)
     (model,) = make_parser(plant).AddModelsFromUrl(
@@ -19,6 +23,8 @@ def make_leap_hand(side):
 
 @pytest.mark.parametrize("side", ["left", "right"])
 def test_leap_hand_parses_and_finalizes(side):
+    """The hand has the expected DOFs, 16 actuators limited to 0.95 N·m,
+    and a total mass of about 0.745 kg."""
     plant, _, model = make_leap_hand(side)
     assert plant.num_positions() == 23
     assert plant.num_velocities() == 22
@@ -34,6 +40,8 @@ def test_leap_hand_parses_and_finalizes(side):
 
 @pytest.mark.parametrize("side", ["left", "right"])
 def test_leap_hand_collisions_are_compliant_hydroelastic(side):
+    """Every collision geometry is compliant hydroelastic with modulus
+    1e6 Pa and friction 1.0."""
     _, scene_graph, _ = make_leap_hand(side)
     inspector = scene_graph.model_inspector()
     geometry_ids = inspector.GetAllGeometryIds(Role.kProximity)
@@ -50,6 +58,8 @@ def test_leap_hand_collisions_are_compliant_hydroelastic(side):
 
 
 def mesh_bounds(inspector, geometry_id):
+    """Return the axis-aligned (min, max) corners of a geometry's convex
+    hull, expressed in its parent frame."""
     hull = inspector.GetShape(geometry_id).GetConvexHull()
     X = inspector.GetPoseInFrame(geometry_id)
     vertices = np.array(
@@ -61,6 +71,8 @@ def mesh_bounds(inspector, geometry_id):
 @pytest.mark.parametrize("side", ["left", "right"])
 @pytest.mark.parametrize("link", ["fingertip", "thumb_fingertip"])
 def test_leap_hand_fingertip_visual_contains_collision(side, link):
+    """The fingertip's convex collision mesh fits within the bounding box
+    of its visual mesh, within 1 mm."""
     plant, scene_graph, _ = make_leap_hand(side)
     inspector = scene_graph.model_inspector()
     frame_id = plant.GetBodyFrameIdOrThrow(plant.GetBodyByName(link).index())
