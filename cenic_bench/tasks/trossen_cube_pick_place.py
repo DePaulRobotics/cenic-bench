@@ -35,10 +35,10 @@ DROP_ZONE_XY = np.array([0.0, -0.10])
 class TrossenLeftArmPolicy(LeafSystem):
     """Wraps a policy controlling the left arm; queried at a fixed rate.
 
-    Outputs only the left arm's 8 actuator setpoints (6 joints + 2 gripper
-    fingers); the right arm is driven separately, by a fixed source wired up
-    in create_scene(). The policy's 7-dim action (6 joint positions + 1
-    gripper position) is expanded into those 8 setpoints and held constant
+    Outputs only the left arm's 7 actuator setpoints (6 joints + 1 gripper);
+    the right arm is driven separately, by a fixed source wired up in
+    create_scene(). The policy's 7-dim action (6 joint positions + 1 gripper
+    position) is expanded into those 7 setpoints and held constant
     (zero-order hold) between queries.
     """
 

@@ -1,16 +1,13 @@
 """Shared helpers for driving one arm of the Trossen Stationary AI.
 
-Used by every task built on this robot, since each arm's actuator layout and
-the mimic-to-independent-actuator gripper workaround are the same regardless
-of which task is being run.
+Used by every task built on this robot, since each arm's actuator layout is
+the same regardless of which task is being run.
 """
 
 import numpy as np
 
 NUM_ARM_JOINTS = 6
-NUM_ARM_ACTUATORS = (
-    NUM_ARM_JOINTS + 2
-)  # 6 joints + 2 independent gripper fingers
+NUM_ARM_ACTUATORS = NUM_ARM_JOINTS + 1  # 6 joints + 1 gripper actuator
 # All-zero joint angles put the gripper clear of the table and frame; a
 # convenient, verified-safe default pose for either arm.
 HOME_ARM_POSITION = np.zeros(NUM_ARM_JOINTS)
@@ -20,23 +17,19 @@ HOME_GRIPPER_POSITION = 0  # close
 def desired_positions(
     plant, model_instance, prefix, arm_position, gripper_position
 ):
-    """Build the 8-actuator desired-position vector for one arm.
+    """Build the 7-actuator desired-position vector for one arm.
 
-    `gripper_position` is sent to both carriage joints, replacing the URDF's
-    mimic constraint (removed because CENIC's continuous-time plants don't
-    support constraints). Indexed by JointActuator.input_start(), which is
-    NOT the same ordering as the plant's positions.
+    One gripper finger mimics the other (a <mimic> joint in the URDF,
+    matching the real hardware's single gripper motor), so only one carriage
+    joint has a real actuator. Indexed by JointActuator.input_start(), which
+    is NOT the same ordering as the plant's positions.
     """
     u = np.zeros(plant.num_actuators(model_instance))
     for i, q in enumerate(arm_position):
         actuator = plant.GetJointActuatorByName(f"{prefix}_motor_{i}")
         u[actuator.input_start()] = q
-    for name in (
-        f"{prefix}_left_carriage_motor",
-        f"{prefix}_right_carriage_motor",
-    ):
-        actuator = plant.GetJointActuatorByName(name)
-        u[actuator.input_start()] = gripper_position
+    actuator = plant.GetJointActuatorByName(f"{prefix}_left_carriage_motor")
+    u[actuator.input_start()] = gripper_position
     return u
 
 
