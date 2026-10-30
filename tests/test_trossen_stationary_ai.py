@@ -19,10 +19,8 @@ def test_degrees_of_freedom():
     plant = _load_plant()
     assert plant.num_positions() == 16
     assert plant.num_velocities() == 16
-    # Each gripper finger has its own actuator (previously one finger per
-    # gripper mimicked the other, but mimic joints don't work with the
-    # continuous-time plants CENIC requires).
-    assert plant.num_actuators() == 16
+    # Each gripper's mimicked finger isn't separately actuated.
+    assert plant.num_actuators() == 14
 
 
 def test_frame_sits_above_tabletop():
