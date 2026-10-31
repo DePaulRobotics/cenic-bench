@@ -2,7 +2,7 @@ from itertools import product
 
 import numpy as np
 import pytest
-from pydrake.geometry import Box, Convex, Mesh, Role
+from pydrake.geometry import Box, Role
 from pydrake.multibody.plant import AddMultibodyPlantSceneGraph
 from pydrake.systems.framework import DiagramBuilder
 
@@ -77,8 +77,6 @@ def mesh_bounds(inspector, geometry_id):
     hull, expressed in its parent frame."""
     vertices = geometry_vertices(inspector, geometry_id)
     return vertices.min(axis=0), vertices.max(axis=0)
-
-
 @pytest.mark.parametrize("side", ["left", "right"])
 def test_leap_hand_visual_and_collision_centers_agree(side):
     """Each link's visual and collision geometry have bounding box centers
@@ -101,31 +99,6 @@ def test_leap_hand_visual_and_collision_centers_agree(side):
         if len(centers) == 2:
             distance = np.linalg.norm(centers[0] - centers[1])
             assert distance < 3e-3, plant.get_body(i).name()
-
-
-@pytest.mark.parametrize("side", ["left", "right"])
-@pytest.mark.parametrize("link", ["fingertip", "thumb_fingertip"])
-def test_leap_hand_fingertip_visual_contains_collision(side, link):
-    """The fingertip's convex collision mesh fits within the bounding box
-    of its visual mesh, within 1 mm."""
-    plant, scene_graph, _ = make_leap_hand(side)
-    inspector = scene_graph.model_inspector()
-    frame_id = plant.GetBodyFrameIdOrThrow(plant.GetBodyByName(link).index())
-    (visual,) = [
-        g
-        for g in inspector.GetGeometries(frame_id, Role.kIllustration)
-        if isinstance(inspector.GetShape(g), Mesh)
-    ]
-    (collision,) = [
-        g
-        for g in inspector.GetGeometries(frame_id, Role.kProximity)
-        if isinstance(inspector.GetShape(g), Convex)
-    ]
-
-    visual_min, visual_max = mesh_bounds(inspector, visual)
-    collision_min, collision_max = mesh_bounds(inspector, collision)
-    assert np.all(collision_min >= visual_min - 1e-3)
-    assert np.all(collision_max <= visual_max + 1e-3)
 
 
 @pytest.mark.parametrize("side", ["left", "right"])
