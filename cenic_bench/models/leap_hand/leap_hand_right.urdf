@@ -1,0 +1,1390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="leap_right" xmlns:drake="http://drake.mit.edu">
+  <link name="base"/>
+  <joint name="base_joint" type="fixed">
+    <parent link="base"/>
+    <child link="palm_lower"/>
+    <origin xyz="0 0.038 0.098" rpy="0 -1.57079 0"/>
+  </joint>
+
+  <link name="palm_lower">
+    <visual>
+      <origin xyz="-0.0200 0.02575 -0.0347" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/visual/palm_lower.gltf"/>
+      </geometry>
+    </visual>
+    <collision>     <!-- palm_lower -->
+      <origin xyz="-0.009 0.008 -0.011" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.022 0.026 0.034"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="-0.009 -0.037 -0.011" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.022 0.026 0.034"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="-0.009 -0.082 -0.011" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.022 0.026 0.034"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="-0.066 -0.078 -0.0115" rpy="0 0 -0.2967"/>
+      <geometry>
+        <box size="0.058 0.02 0.046"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="-0.03 -0.035 -0.003" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.02 0.12 0.03"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="-0.032 -0.035 -0.024" rpy="0 0.785 0"/>
+      <geometry>
+        <box size="0.01 0.12 0.02"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="-0.048 -0.033 -0.0115" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.024 0.116 0.046"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="-0.078 -0.053 -0.0115" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.044 0.052 0.046"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="-0.098 -0.009 -0.006" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.004 0.036 0.034"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="-0.078 -0.003 0.01" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.044 0.056 0.004"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <inertial>
+      <origin xyz="-0.04818 -0.03974 -0.01022" rpy="0 0 0"/>
+      <mass value="0.237"/>
+      <inertia ixx="0.000290562" ixy="-0.000028404" ixz="-0.000000649" iyy="0.000203283" iyz="-0.000005586" izz="0.000416455"/>
+    </inertial>
+  </link>
+  <link name="mcp_joint">
+    <visual>
+      <origin xyz="0.0084 0.0077 0.01465" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/visual/mcp_joint.gltf"/>
+      </geometry>
+    </visual>
+    <collision>      <!-- mcp_joint -->
+      <origin xyz="0 0.018 0.0147" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.02 0.006 0.034"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="-0.027 0.042 0.015" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.028 0.04 0.02"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="-0.0262 0.02 0.0146" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.034 0.006 0.02"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="-0.0295 0.035 0.029" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.02 0.024 0.008"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 0.005 0.03" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.014 0.02 0.004"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 0.005 -0.001" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.014 0.02 0.004"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <inertial>
+      <origin xyz="-0.02242 0.03408 0.01638" rpy="0 0 0"/>
+      <mass value="0.044"/>
+      <inertia ixx="0.000013252" ixy="0.000004355" ixz="0.000000511" iyy="0.000010382" iyz="-0.000000153" izz="0.000017520"/>
+    </inertial>
+  </link>
+  <link name="pip">
+    <visual>
+      <origin xyz="0.0096 0.0002 0.0007" rpy="-1.57079 -1.57079 0"/>
+      <geometry>
+        <mesh filename="meshes/visual/pip.gltf"/>
+      </geometry>
+    </visual>
+    <collision>     <!-- pip -->
+      <origin xyz="0.0075 -0.0002 -0.011" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.034 0.026 0.022"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <inertial>
+      <origin xyz="0.00750 -0.00020 -0.01100" rpy="0 0 0"/>
+      <mass value="0.032"/>
+      <inertia ixx="0.000003093" ixy="0.000000000" ixz="0.000000000" iyy="0.000004373" iyz="0.000000000" izz="0.000004885"/>
+    </inertial>
+  </link>
+  <link name="dip">
+    <visual>
+      <origin xyz="0.0211 -0.0084 0.0097" rpy="-3.1415926 0 0"/>
+      <geometry>
+        <mesh filename="meshes/visual/dip.gltf"/>
+      </geometry>
+    </visual>
+    <collision>     <!-- dip -->
+      <origin xyz="0 -0.02 0.015" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.016 0.006 0.026"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 -0.016 0.015" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.02 0.004 0.034"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 -0.0045 0.03" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.014 0.02 0.004"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 -0.0045 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.014 0.02 0.004"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0.0075 -0.035 0.015" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.034 0.022 0.026"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <inertial>
+      <origin xyz="0.00552 -0.02936 0.01500" rpy="0 0 0"/>
+      <mass value="0.037"/>
+      <inertia ixx="0.000007664" ixy="0.000001151" ixz="0.000000000" iyy="0.000006022" iyz="0.000000000" izz="0.000008174"/>
+    </inertial>
+  </link>
+  <link name="fingertip">
+    <visual>
+      <origin xyz="0.0132 -0.0061 0.0144" rpy="3.1415926 0 0"/>
+      <geometry>
+        <mesh filename="meshes/visual/fingertip.gltf"/>
+      </geometry>
+    </visual>
+    <collision>     <!-- fingertip -->
+      <origin xyz="0 -0.017 0.015" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.02 0.006 0.03"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 -0.006 0.03" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.014 0.022 0.004"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 -0.006 -0.001" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.014 0.022 0.004"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/collision/white_tip.obj">
+          <drake:declare_convex/>
+        </mesh>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <inertial>
+      <origin xyz="-0.00090 -0.02721 0.01457" rpy="0 0 0"/>
+      <mass value="0.016"/>
+      <inertia ixx="0.000003715" ixy="-0.000000125" ixz="-0.000000001" iyy="0.000001653" iyz="-0.000000008" izz="0.000003034"/>
+    </inertial>
+  </link>
+
+  <joint name="0" type="revolute">
+    <origin xyz="-0.0122 0.03810 0.01450" rpy="-1.57079 0 1.57079"/>
+    <parent link="mcp_joint"/>
+    <child link="pip"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="0.95" velocity="8.48" lower="-1.047" upper="1.047"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <joint name="1" type="revolute">
+    <origin xyz="-0.0070 0.0230 -0.0187" rpy="1.57079 1.57079 0"/>
+    <parent link="palm_lower"/>
+    <child link="mcp_joint"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="0.95" velocity="8.48" lower="-0.314" upper="2.23"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <joint name="2" type="revolute">
+    <origin xyz="0.015 0.0143 -0.013" rpy="1.57079 -1.57079 0"/>
+    <parent link="pip"/>
+    <child link="dip"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="0.95" velocity="8.48" lower="-0.506" upper="1.885"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <joint name="3" type="revolute">
+    <origin xyz="0 -0.0361 0.0002" rpy="0 0 0"/>
+    <parent link="dip"/>
+    <child link="fingertip"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="0.95" velocity="8.48" lower="-0.366" upper="2.042"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <link name="mcp_joint_2">
+    <visual>
+      <origin xyz="0.0084 0.0077 0.01465" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/visual/mcp_joint.gltf"/>
+      </geometry>
+    </visual>
+    <collision>      <!-- mcp_joint -->
+      <origin xyz="0 0.018 0.0147" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.02 0.006 0.034"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="-0.027 0.042 0.015" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.028 0.04 0.02"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="-0.0262 0.02 0.0146" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.034 0.006 0.02"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="-0.0295 0.035 0.029" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.02 0.024 0.008"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 0.005 0.03" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.014 0.02 0.004"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 0.005 -0.001" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.014 0.02 0.004"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <inertial>
+      <origin xyz="-0.02242 0.03408 0.01638" rpy="0 0 0"/>
+      <mass value="0.044"/>
+      <inertia ixx="0.000013252" ixy="0.000004355" ixz="0.000000511" iyy="0.000010382" iyz="-0.000000153" izz="0.000017520"/>
+    </inertial>
+  </link>
+  <link name="pip_2">
+    <visual>
+      <origin xyz="0.0096 0.0003 0.0007" rpy="-1.57079 -1.57079 0"/>
+      <geometry>
+        <mesh filename="meshes/visual/pip.gltf"/>
+      </geometry>
+    </visual>
+    <collision>     <!-- pip -->
+      <origin xyz="0.0075 -0.0002 -0.011" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.034 0.026 0.022"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <inertial>
+      <origin xyz="0.00750 -0.00020 -0.01100" rpy="0 0 0"/>
+      <mass value="0.032"/>
+      <inertia ixx="0.000003093" ixy="0.000000000" ixz="0.000000000" iyy="0.000004373" iyz="0.000000000" izz="0.000004885"/>
+    </inertial>
+  </link>
+  <link name="dip_2">
+    <visual>
+      <origin xyz="0.0211 -0.0084 0.0097" rpy="-3.14159 0 0"/>
+      <geometry>
+        <mesh filename="meshes/visual/dip.gltf"/>
+      </geometry>
+    </visual>
+    <collision>     <!-- dip -->
+      <origin xyz="0 -0.02 0.015" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.016 0.006 0.026"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 -0.016 0.015" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.02 0.004 0.034"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 -0.0045 0.03" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.014 0.02 0.004"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 -0.0045 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.014 0.02 0.004"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0.0075 -0.035 0.015" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.034 0.022 0.026"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <inertial>
+      <origin xyz="0.00552 -0.02936 0.01500" rpy="0 0 0"/>
+      <mass value="0.037"/>
+      <inertia ixx="0.000007664" ixy="0.000001151" ixz="0.000000000" iyy="0.000006022" iyz="0.000000000" izz="0.000008174"/>
+    </inertial>
+  </link>
+  <link name="fingertip_2">
+    <visual>
+      <origin xyz="0.0132 -0.0061 0.01450" rpy="3.14159 0 0"/>
+      <geometry>
+        <mesh filename="meshes/visual/fingertip.gltf"/>
+      </geometry>
+    </visual>
+    <collision>     <!-- fingertip -->
+      <origin xyz="0 -0.017 0.015" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.02 0.006 0.03"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 -0.006 0.03" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.014 0.022 0.004"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 -0.006 -0.001" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.014 0.022 0.004"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/collision/white_tip.obj">
+          <drake:declare_convex/>
+        </mesh>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <inertial>
+      <origin xyz="-0.00090 -0.02721 0.01457" rpy="0 0 0"/>
+      <mass value="0.016"/>
+      <inertia ixx="0.000003715" ixy="-0.000000125" ixz="-0.000000001" iyy="0.000001653" iyz="-0.000000008" izz="0.000003034"/>
+    </inertial>
+  </link>
+  <joint name="4" type="revolute">
+    <origin xyz="-0.0122 0.0381 0.0145" rpy="-1.57079 0 1.57079"/>
+    <parent link="mcp_joint_2"/>
+    <child link="pip_2"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="0.95" velocity="8.48" lower="-1.047" upper="1.047"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <joint name="5" type="revolute">
+    <origin xyz="-0.0071 -0.0224 -0.0187" rpy="1.57079 1.57079 0"/>
+    <parent link="palm_lower"/>
+    <child link="mcp_joint_2"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="0.95" velocity="8.48" lower="-0.314" upper="2.23"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <joint name="6" type="revolute">
+    <origin xyz="0.015 0.0143 -0.013" rpy="1.57079 -1.57079 0"/>
+    <parent link="pip_2"/>
+    <child link="dip_2"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="0.95" velocity="8.48" lower="-0.506" upper="1.885"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <joint name="7" type="revolute">
+    <origin xyz="0 -0.0361 0.0002" rpy="0 0 0"/>
+    <parent link="dip_2"/>
+    <child link="fingertip_2"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="0.95" velocity="8.48" lower="-0.366" upper="2.042"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <link name="mcp_joint_3">
+    <visual>
+      <origin xyz="0.0084 0.0077 0.01465" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/visual/mcp_joint.gltf"/>
+      </geometry>
+    </visual>
+    <collision>      <!-- mcp_joint -->
+      <origin xyz="0 0.018 0.0147" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.02 0.006 0.034"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="-0.027 0.042 0.015" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.028 0.04 0.02"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="-0.0262 0.02 0.0146" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.034 0.006 0.02"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="-0.0295 0.035 0.029" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.02 0.024 0.008"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 0.005 0.03" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.014 0.02 0.004"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 0.005 -0.001" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.014 0.02 0.004"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <inertial>
+      <origin xyz="-0.02242 0.03408 0.01638" rpy="0 0 0"/>
+      <mass value="0.044"/>
+      <inertia ixx="0.000013252" ixy="0.000004355" ixz="0.000000511" iyy="0.000010382" iyz="-0.000000153" izz="0.000017520"/>
+    </inertial>
+  </link>
+  <link name="pip_3">
+    <visual>
+      <origin xyz="0.0096 0.0003 0.0007" rpy="-1.57079 -1.57079 0"/>
+      <geometry>
+        <mesh filename="meshes/visual/pip.gltf"/>
+      </geometry>
+    </visual>
+    <collision>     <!-- pip -->
+      <origin xyz="0.0075 -0.0002 -0.011" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.034 0.026 0.022"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <inertial>
+      <origin xyz="0.00750 -0.00020 -0.01100" rpy="0 0 0"/>
+      <mass value="0.032"/>
+      <inertia ixx="0.000003093" ixy="0.000000000" ixz="0.000000000" iyy="0.000004373" iyz="0.000000000" izz="0.000004885"/>
+    </inertial>
+  </link>
+  <link name="dip_3">
+    <visual>
+      <origin xyz="0.0211 -0.0084 0.0097" rpy="-3.14159 0 0"/>
+      <geometry>
+        <mesh filename="meshes/visual/dip.gltf"/>
+      </geometry>
+    </visual>
+    <collision>     <!-- dip -->
+      <origin xyz="0 -0.02 0.015" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.016 0.006 0.026"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 -0.016 0.015" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.02 0.004 0.034"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 -0.0045 0.03" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.014 0.02 0.004"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 -0.0045 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.014 0.02 0.004"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0.0075 -0.035 0.015" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.034 0.022 0.026"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <inertial>
+      <origin xyz="0.00552 -0.02936 0.01500" rpy="0 0 0"/>
+      <mass value="0.037"/>
+      <inertia ixx="0.000007664" ixy="0.000001151" ixz="0.000000000" iyy="0.000006022" iyz="0.000000000" izz="0.000008174"/>
+    </inertial>
+  </link>
+  <link name="fingertip_3">
+    <visual>
+      <origin xyz="0.0132 -0.0061 0.0145" rpy="3.14159 0 0"/>
+      <geometry>
+        <mesh filename="meshes/visual/fingertip.gltf"/>
+      </geometry>
+    </visual>
+    <collision>     <!-- fingertip -->
+      <origin xyz="0 -0.017 0.015" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.02 0.006 0.03"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 -0.006 0.03" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.014 0.022 0.004"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 -0.006 -0.001" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.014 0.022 0.004"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/collision/white_tip.obj">
+          <drake:declare_convex/>
+        </mesh>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <inertial>
+      <origin xyz="-0.00090 -0.02721 0.01457" rpy="0 0 0"/>
+      <mass value="0.016"/>
+      <inertia ixx="0.000003715" ixy="-0.000000125" ixz="-0.000000001" iyy="0.000001653" iyz="-0.000000008" izz="0.000003034"/>
+    </inertial>
+  </link>
+  <joint name="8" type="revolute">
+    <origin xyz="-0.0122 0.0381 0.0145" rpy="-1.57079 0 1.57079"/>
+    <parent link="mcp_joint_3"/>
+    <child link="pip_3"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="0.95" velocity="8.48" lower="-1.047" upper="1.047"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <joint name="9" type="revolute">
+    <origin xyz="-0.00709 -0.0678 -0.0187" rpy="1.57079 1.57079 0"/>
+    <parent link="palm_lower"/>
+    <child link="mcp_joint_3"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="0.95" velocity="8.48" lower="-0.314" upper="2.23"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <joint name="10" type="revolute">
+    <origin xyz="0.015 0.0143 -0.013" rpy="1.57079 -1.57079 0"/>
+    <parent link="pip_3"/>
+    <child link="dip_3"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="0.95" velocity="8.48" lower="-0.506" upper="1.885"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <joint name="11" type="revolute">
+    <origin xyz="0 -0.03609 0.0002" rpy="0 0 0"/>
+    <parent link="dip_3"/>
+    <child link="fingertip_3"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="0.95" velocity="8.48" lower="-0.366" upper="2.042"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <link name="thumb_temp_base">
+    <visual>
+      <origin xyz="-0.0053 0.0003 0.00078" rpy="-1.57079 -1.57079 0"/>
+      <geometry>
+        <mesh filename="meshes/visual/pip.gltf"/>
+      </geometry>
+    </visual>
+    <collision>     <!-- pip -->
+      <origin xyz="-0.0074 -0.0001 -0.0109" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.034 0.026 0.022"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <inertial>
+      <origin xyz="-0.00740 -0.00010 -0.01090" rpy="0 0 0"/>
+      <mass value="0.032"/>
+      <inertia ixx="0.000003093" ixy="0.000000000" ixz="0.000000000" iyy="0.000004373" iyz="0.000000000" izz="0.000004885"/>
+    </inertial>
+  </link>
+  <link name="thumb_pip">
+    <visual>
+      <origin xyz="0.01196 0 -0.0158" rpy="1.57079 0 0"/>
+      <geometry>
+        <mesh filename="meshes/visual/thumb_pip.gltf"/>
+      </geometry>
+    </visual>
+    <collision>     <!-- thumb_pip -->
+      <origin xyz="0 0 -0.0015" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.018 0.033 0.004"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 -0.015 -0.013" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.014 0.004 0.02"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 0.015 -0.013" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.014 0.004 0.02"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <inertial>
+      <origin xyz="0.00000 0.00000 -0.00712" rpy="0 0 0"/>
+      <mass value="0.003"/>
+      <inertia ixx="0.000000618" ixy="0.000000000" ixz="0.000000000" iyy="0.000000216" iyz="0.000000000" izz="0.000000533"/>
+    </inertial>
+  </link>
+  <link name="thumb_dip">
+    <visual>
+      <origin xyz="0.0439 0.0579 -0.0086" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/visual/thumb_dip.gltf"/>
+      </geometry>
+    </visual>
+    <collision>     <!-- thumb_dip -->
+      <origin xyz="0 0.0105 -0.014" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.02 0.04 0.024"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 0.031 -0.015" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.02 0.004 0.032"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 0.042 0.001" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.014 0.02 0.004"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 0.042 -0.029" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.014 0.02 0.004"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="-0.0135 0.0175 -0.011656" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.024 0.018"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <inertial>
+      <origin xyz="-0.00195 0.01545 -0.01377" rpy="0 0 0"/>
+      <mass value="0.038"/>
+      <inertia ixx="0.000009956" ixy="0.000000152" ixz="0.000000150" iyy="0.000004406" iyz="0.000000022" izz="0.000009516"/>
+    </inertial>
+  </link>
+  <link name="thumb_fingertip">
+    <visual>
+      <origin xyz="0.0625 0.0784 0.0489" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/visual/thumb_fingertip.gltf"/>
+      </geometry>
+    </visual>
+    <collision>     <!-- thumb_fingertip -->
+      <origin xyz="0 -0.0085 -0.015" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.02 0.036 0.024"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 -0.029 -0.014" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.02 0.004 0.03"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0.015 -0.0175 -0.0115" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.008 0.024 0.018"/>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/collision/white_tip_thumb.obj">
+          <drake:declare_convex/>
+        </mesh>
+      </geometry>
+      <drake:proximity_properties>
+        <drake:compliant_hydroelastic/>
+        <drake:hydroelastic_modulus value="1e6"/>
+        <drake:mu_dynamic value="1.0"/>
+        <drake:mu_static value="1.0"/>
+      </drake:proximity_properties>
+    </collision>
+    <inertial>
+      <origin xyz="0.00095 -0.02424 -0.01442" rpy="0 0 0"/>
+      <mass value="0.049"/>
+      <inertia ixx="0.000020364" ixy="-0.000001001" ixz="-0.000000206" iyy="0.000004773" iyz="0.000000102" izz="0.000020595"/>
+    </inertial>
+  </link>
+  <joint name="12" type="revolute">
+    <origin xyz="-0.0693 -0.0012 -0.0216" rpy="0 1.57079 0"/>
+    <parent link="palm_lower"/>
+    <child link="thumb_temp_base"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="0.95" velocity="8.48" lower="-0.349" upper="2.094"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <joint name="13" type="revolute">
+    <origin xyz="0 0.0143 -0.013" rpy="1.57079 -1.57079 0"/>
+    <parent link="thumb_temp_base"/>
+    <child link="thumb_pip"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="0.95" velocity="8.48" lower="-0.47" upper="2.443"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <joint name="14" type="revolute">
+    <origin xyz="0 0.0145 -0.017" rpy="-1.57079 0 0"/>
+    <parent link="thumb_pip"/>
+    <child link="thumb_dip"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="0.95" velocity="8.48" lower="-1.20" upper="1.90"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+  <joint name="15" type="revolute">
+    <origin xyz="0 0.0466 0.0002" rpy="0 0 3.14159"/>
+    <parent link="thumb_dip"/>
+    <child link="thumb_fingertip"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="0.95" velocity="8.48" lower="-1.34" upper="1.88"/>
+    <joint_properties friction="0.0"/>
+  </joint>
+
+  <!--  virtual auxiliary link-->
+  <link name="thumb_tip_head"/>
+  <link name="index_tip_head"/>
+  <link name="middle_tip_head"/>
+  <link name="ring_tip_head"/>
+  <joint name="thumb_tip" type="fixed">
+    <parent link="thumb_fingertip"/>
+    <child link="thumb_tip_head"/>
+    <origin rpy="0 0 0" xyz="0 -0.06 -0.015"/>
+  </joint>
+  <joint name="index_tip" type="fixed">
+    <parent link="fingertip"/>
+    <child link="index_tip_head"/>
+    <origin rpy="0 0 0" xyz="0 -0.048 0.015"/>
+  </joint>
+  <joint name="middle_tip" type="fixed">
+    <parent link="fingertip_2"/>
+    <child link="middle_tip_head"/>
+    <origin rpy="0 0 0" xyz="0 -0.048 0.015"/>
+  </joint>
+  <joint name="ring_tip" type="fixed">
+    <parent link="fingertip_3"/>
+    <child link="ring_tip_head"/>
+    <origin rpy="0 0 0" xyz="0 -0.048 0.015"/>
+  </joint>
+  <transmission name="0_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="0">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="0_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="1_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="1_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="2_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="2">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="2_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="3_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="3">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="3_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="4_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="4">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="4_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="5_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="5">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="5_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="6_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="6">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="6_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="7_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="7">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="7_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="8_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="8">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="8_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="9_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="9">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="9_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="10_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="10">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="10_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="11_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="11">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="11_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="12_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="12">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="12_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="13_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="13">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="13_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="14_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="14">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="14_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="15_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="15">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="15_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+</robot>
